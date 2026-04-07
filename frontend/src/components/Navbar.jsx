@@ -5,7 +5,7 @@ const Navbar = () => {
     return (
         <div className="navbar shadow-sm bg-[#583927]">
             <div className="navbar-start">
-                <p className="text-4xl league-gothic-font text-[#B5CD88] text-shadow-md">Banyan <span className="text-[#BB616D]">Hire</span></p>
+                <p className="text-4xl relieve-font text-[#B5CD88] text-shadow-md">Banyan <span className="text-[#BB616D]">Hire</span></p>
 
             </div>
             <div className="navbar-center">
@@ -15,7 +15,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-end">
                 <button className="btn rounded-3xl bg-transparent text-[#FAF3E8] border-[#FAF3E8]"> LogIn</button>
-                <button className="btn rounded-3xl m-2 bg-[#FAF3E8] border-[#FAF3E8]">
+                <button className="btn rounded-3xl m-2 text-[#583927] bg-[#FAF3E8] border-[#FAF3E8]">
                 SignUp
             </button>
             </div>
