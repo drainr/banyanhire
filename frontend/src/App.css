@@ -18,11 +18,23 @@ body {
     text-align: center;
 }
 
+@font-face {
+    font-family: "Relieve";
+    src: url("./components/Fonts/Relieve.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+.relieve-font {
+    font-family: "Relieve", sans-serif;
+    letter-spacing: 1px;
+}
+
 .league-gothic-font {
     font-family: "League Gothic", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: italic;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 2px;
+    transform: skewX(-10deg);
     font-variation-settings:
             "wdth" 100;
 }
