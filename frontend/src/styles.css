@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 .App {
     min-height: 100vh;
     display: flex;
@@ -15,7 +17,7 @@
     text-align: center;
 }
 
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 
 * {
     box-sizing: border-box;
@@ -31,6 +33,7 @@ body {
 h1 {
     font-weight: bold;
     margin: 0;
+    color: #583927;
 }
 
 h2 {
@@ -174,9 +177,9 @@ input {
 }
 
 .overlay {
-    background: #ff416c;
-    background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    background: #B5CD88;
+    background: -webkit-linear-gradient(to right, #91D8D4, #B5CD88);
+    background: linear-gradient(to right, #91D8D4, #B5CD88);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 0 0;

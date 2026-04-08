@@ -1,4 +1,5 @@
 import React from "react";
+import GreenButton from "../components/buttons/GreenButton.jsx";
 
 
 function SignUp() {
@@ -34,7 +35,7 @@ function SignUp() {
     return (
         <div className="form-container sign-up-container">
             <form onSubmit={handleOnSubmit}>
-                <h1>Create Account</h1>
+                <h1 className="league-gothic-font text-[#583927]">SIGN UP</h1>
                 <div className="social-container">
                     <a href="#" className="social">
                         <i className="fab fa-facebook-f" />
@@ -68,7 +69,7 @@ function SignUp() {
                     onChange={handleChange}
                     placeholder="Password"
                 />
-                <button>Sign Up</button>
+                <GreenButton text="Sign Up" />
             </form>
         </div>
     );
