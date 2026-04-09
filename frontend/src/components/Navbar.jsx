@@ -1,6 +1,7 @@
 import React from 'react';
 import '../App.css'
 import logo from '../assets/logo-banyanhire.png';
+import NavbarAnimationButton from "./buttons/NavbarAnimationButton.jsx";
 
 const Navbar = () => {
     return (
@@ -10,8 +11,9 @@ const Navbar = () => {
 
             </div>
             <div className="navbar-center">
-               <a className="navbar-item mr-4 text-xl  text-[#FAF3E8] league-gothic-font" href="/">Hire now</a>
-                <a className="navbar-item text-xl text-[#FAF3E8] league-gothic-font" href="/">Find a job</a>
+                <NavbarAnimationButton text="test"/>
+               <a className="hover-underline-animation navbar-item  mr-4 text-xl  text-[#FAF3E8] league-gothic-font" href="/">Hire now</a>
+                <a className="hover-underline-animation navbar-item text-xl text-[#FAF3E8] league-gothic-font" href="/">Find a job</a>
 
             </div>
             <div className="navbar-end">
