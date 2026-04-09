@@ -1,12 +1,12 @@
 import React from 'react';
 import BrownButton from '../buttons/BrownButton.jsx';
 
-const FindJob = ({ onClick }) => {
+const HireNow = ({ onClick }) => {
 	return (
-		<div className="flex justify-center mt-8">
-			<BrownButton text="Find Job" onClick={onClick} />
+		<div>
+			<BrownButton text="Hire Now" onClick={onClick} />
 		</div>
 	);
 };
 
-export default FindJob;
+export default HireNow;

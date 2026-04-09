@@ -2,7 +2,8 @@ import React from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import VideoBox from '../components/HomepageComponents/VideoBox.jsx';
-import FindJob from '../components/HomepageComponents/FindJobBtn.jsx';
+import FindJob from '../components/HomepageComponents/FindJobBTN.jsx';
+import HireNow from '../components/HomepageComponents/HireNowBTN.jsx';
 
 const Homepage = () => {
 	return (
@@ -16,7 +17,10 @@ const Homepage = () => {
 			<main className="h-[1000px] py-6 px-4">
                 {/* movie box */}
 				<VideoBox />
-				<FindJob />
+				<div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
+					<FindJob />
+					<HireNow />
+				</div>
 			</main>
 
 

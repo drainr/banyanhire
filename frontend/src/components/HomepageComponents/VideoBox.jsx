@@ -10,10 +10,10 @@ const VideoBox = ({
 	poster,
 }) => {
 	return (
-		<section className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl bg-base-200 p-4 md:p-6">
-			<div className="relative">
+		<section className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-2xl p-4 md:p-6">
+			<div className="relative h-[290px] md:h-[400px]">
 				<video
-					className="w-full rounded-xl pointer-events-none select-none"
+					className="w-full h-full object-cover rounded-xl pointer-events-none select-none"
 					src={videoSrc}
 					poster={poster}
 					controls={false}
