@@ -1,11 +1,12 @@
 import React from 'react';
 import '../App.css'
+import logo from '../assets/logo-banyanhire.png';
 
 const Navbar = () => {
     return (
-        <div className="navbar shadow-sm bg-[#583927]">
+        <div className="navbar bg-[#583927]">
             <div className="navbar-start">
-                <p className="text-4xl relieve-font text-[#B5CD88] text-shadow-md">Banyan <span className="text-[#BB616D]">Hire</span></p>
+                <img src={logo} alt="BanyanHire logo" className="h-12 w-auto" />
 
             </div>
             <div className="navbar-center">

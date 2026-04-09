@@ -7,14 +7,14 @@ import HireNow from '../components/HomepageComponents/HireNowBTN.jsx';
 
 const Homepage = () => {
 	return (
-		<div className="bg-base-100">
+		<div className="bg-[#583927]">
             {/* navbar */}
 			<Navbar />
 
 
             {/* main body */}
             {/* control the static size of the home screen */}
-			<main className="h-[1000px] py-6 px-4">
+			<main className="h-[800px] py-6 px-4">
                 {/* movie box */}
 				<VideoBox />
 				<div className="mt-8 flex items-center justify-center gap-4 flex-wrap">

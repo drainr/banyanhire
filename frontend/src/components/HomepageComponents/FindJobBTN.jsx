@@ -1,10 +1,10 @@
 import React from 'react';
-import BrownButton from '../buttons/BrownButton.jsx';
+import CremeButton from '../buttons/CremeButton.jsx';
 
 const FindJob = ({ onClick }) => {
 	return (
 		<div>
-			<BrownButton text="Find Job" onClick={onClick} />
+			<CremeButton text="Find Job" onClick={onClick} />
 		</div>
 	);
 };
