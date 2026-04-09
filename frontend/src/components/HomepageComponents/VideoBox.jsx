@@ -11,7 +11,7 @@ const VideoBox = ({
 }) => {
 	return (
 		<section className="relative w-full max-w-4x2 mx-auto overflow-hidden rounded-2xl p-4 md:p-6">
-			<div className="relative h-[290px] md:h-[400px]">
+			<div className="relative h-[290px] md:h-[400px] shadow-lg rounded-2xl">
 				<video
 					className="w-full h-full object-cover rounded-xl pointer-events-none select-none"
 					src={videoSrc}
