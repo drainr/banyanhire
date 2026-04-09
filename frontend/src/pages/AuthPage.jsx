@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../styles.css";
-import SignInForm from "../../pages/Login.jsx";
-import SignUpForm from "../../pages/SignUp.jsx";
+import SignInForm from "./Login.jsx";
+import SignUpForm from "./SignUp.jsx";
 
-export default function LoginForm() {
+export default function AuthPage() {
     const [type, setType] = useState("signIn");
     const handleOnClick = text => {
         if (text !== type) {
@@ -14,7 +14,7 @@ export default function LoginForm() {
     const containerClass =
         "container " + (type === "signUp" ? "right-panel-active" : "");
     return (
-        <div className="App">
+        <div className="auth-page">
             <div className={containerClass} id="container">
                 <SignUpForm />
                 <SignInForm />
@@ -25,7 +25,6 @@ export default function LoginForm() {
                             <p>
                                 To keep connected with us please login with your personal info
                             </p>
-
                             <button
                                 className="ghost"
                                 id="signIn"
@@ -38,7 +37,7 @@ export default function LoginForm() {
                             <h1 className="league-gothic-font">HELLO, FRIEND!</h1>
                             <p>Enter your personal details and start journey with us</p>
                             <button
-                                className="ghost "
+                                className="ghost"
                                 id="signUp"
                                 onClick={() => handleOnClick("signUp")}
                             >
@@ -51,4 +50,3 @@ export default function LoginForm() {
         </div>
     );
 }
-
