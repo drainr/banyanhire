@@ -109,3 +109,9 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+#skip-button.custom-button {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
