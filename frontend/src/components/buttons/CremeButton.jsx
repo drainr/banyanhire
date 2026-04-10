@@ -13,7 +13,7 @@ const StyledWrapper = styled.div`
   button {
    padding: 15px 25px;
    border: none;
-   border-radius: 20px;
+   border-radius: 30px;
    color: #583927;
    z-index: 1;
    background: #FAF3E8;
