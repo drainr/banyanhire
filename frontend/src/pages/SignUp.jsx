@@ -35,7 +35,7 @@ function SignUp() {
     return (
         <div className="form-container sign-up-container">
             <form onSubmit={handleOnSubmit}>
-                <h1 className="league-gothic-font text-[#583927]">SIGN UP</h1>
+                <h1 className="league-gothic-font text-[#583927] text-4xl">SIGN UP</h1>
                 <div className="social-container">
                     <a href="#" className="social">
                         <i className="fab fa-facebook-f" />
@@ -63,6 +63,7 @@ function SignUp() {
                     placeholder="Email"
                 />
                 <input
+                    className="pb-2"
                     type="password"
                     name="password"
                     value={state.password}
