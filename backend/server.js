@@ -1,6 +1,11 @@
+require("dotenv").config({ path: "../.env" });
 const express = require("express");
 const cors = require("cors");
 const { connectDB } = require("./config/db");
+const authRoutes = require("./routes/auth");
+const jobRoutes = require("./routes/jobs");
+const applicationRoutes = require("./routes/applications");
+const protectedRoutes = require("./routes/protected");
 
 const app = express();
 app.use(express.json());
@@ -10,9 +15,10 @@ const port = process.env.PORT || 3005;
 
 connectDB().then(() => {
   // register routes after DB is connected
-  app.use("/api/auth",         require("./routes/auth"));
-  app.use("/api/jobs",         require("./routes/jobs"));
-  app.use("/api/applications", require("./routes/applications"));
+  app.use("/api/auth", authRoutes);
+  app.use("/api/jobs", jobRoutes);
+  app.use("/api/applications", applicationRoutes);
+  app.use("/api/protected", protectedRoutes);
 
   app.listen(port, () => console.log(`Listening on port: ${port}`));
 }).catch(console.error);

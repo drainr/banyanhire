@@ -8,6 +8,8 @@ const jobSchema = new mongoose.Schema({
   location:       { type: String, required: true },
   salaryMin:      { type: Number },
   salaryMax:      { type: Number },
+  hourlyRate:     { type: Number },
+  employmentType: { type: String, enum: ["full-time", "part-time", "internship"] },
   description:    { type: String, required: true },
   qualifications: { type: String },
   deadline:       { type: Date },
