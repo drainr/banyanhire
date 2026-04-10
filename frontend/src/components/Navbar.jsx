@@ -2,8 +2,11 @@ import React from 'react';
 import '../App.css'
 import logo from '../assets/logo-banyanhire.png';
 import NavbarAnimationButton from "./buttons/NavbarAnimationButton.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="navbar bg-[#583927]">
             <div className="navbar-start">
@@ -11,14 +14,14 @@ const Navbar = () => {
 
             </div>
             <div className="navbar-center">
-                <NavbarAnimationButton text="test"/>
+                <NavbarAnimationButton text="Find a Job"/>
                <a className="hover-underline-animation navbar-item  mr-4 text-xl  text-[#FAF3E8] league-gothic-font" href="/">Hire now</a>
                 <a className="hover-underline-animation navbar-item text-xl text-[#FAF3E8] league-gothic-font" href="/">Find a job</a>
 
             </div>
             <div className="navbar-end">
-                <button className="btn rounded-3xl bg-transparent text-[#FAF3E8] border-[#FAF3E8]"> LogIn</button>
-                <button className="btn rounded-3xl m-2 text-[#583927] bg-[#FAF3E8] border-[#FAF3E8]">
+                <button onClick={() => navigate("/auth")} className="btn rounded-3xl bg-transparent text-[#FAF3E8] border-[#FAF3E8]"> LogIn</button>
+                <button  onClick={() => navigate("/auth")} className="btn rounded-3xl m-2 text-[#583927] bg-[#FAF3E8] border-[#FAF3E8]">
                 SignUp
             </button>
             </div>

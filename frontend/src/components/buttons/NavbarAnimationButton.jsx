@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import "../../App.css";
 
-const NavbarAnimationButton = ({text}) => {
+const NavbarAnimationButton = ({text, onClick}) => {
     return (
         <StyledWrapper>
-            <button className="cta ">
+            <button className="cta " onClick={onClick}>
                 <span className="hover-underline-animation"> {text} </span>
             </button>
         </StyledWrapper>

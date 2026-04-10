@@ -1,11 +1,12 @@
-import './App.css'
-import Homepage from './pages/Homepage.jsx';
+//import { BrowserRouter } from "react-router-dom";
+// import { AuthProvider } from "./context/AuthContext";
+import MainRoute from './routes/MainRoute.jsx';
 
 function App() {
-
   return (
-    <Homepage />
-  )
+        <MainRoute />
+
+  );
 }
 
-export default App
+export default App;

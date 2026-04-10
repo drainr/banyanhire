@@ -1,25 +1,29 @@
 import { Routes, Route } from "react-router-dom";
-import PrivateRoute from "./PrivateRoute";
-import Login from "../pages/LoginForm.jsx";
-
-
+import AuthPage from "../pages/AuthPage.jsx";
+import Homepage from "../pages/Homepage.jsx";
+import NotFound from "../pages/NotFound.jsx";
+import UserProfile from "../pages/UserProfile.jsx";
+import SeekerDashboard from "../pages/SeekerDashboard.jsx";
 
 const MainRoute = () => {
-    return (
-        <Routes>
-            {/* Public */}
-            <Route path="/login" element={<Login />} />
+  return (
+    <Routes>
+      {/* Public */}
+      <Route path="/" element={<Homepage />} />
+      <Route path="/auth" element={<AuthPage />} />
+        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/SeekerDashboard" element={<SeekerDashboard />} />
+{/* 
+      <Route element={<PrivateRoute />}>
+        <Route path="/recruiter" element={<RecruiterDashboard />} />
+        <Route path="/seeker" element={<SeekerDashboard />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+      </Route> 
+      */}
 
-
-
-            {/* Private */}
-            <Route element={<PrivateRoute />}>
-                <Route element={<Root />}>
-                    </Route>
-            </Route>
-            <Route path='*' element={<NotFound />} />
-        </Routes>
-    );
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
 };
 
 export default MainRoute;

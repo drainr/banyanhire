@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
+
 
 #root {
     width: 100%;
@@ -14,7 +14,6 @@
 
 body {
     background: #f6f5f7;
-    font-family: "Montserrat", sans-serif;
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -43,43 +42,16 @@ p {
     letter-spacing: 0.5px;
     margin: 20px 0 30px;
 }
-
-span {
-    font-size: 12px;
+.league-gothic-font {
+    font-family: "League Gothic", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 2px;
+    transform: skewX(-10deg);
+    font-variation-settings:
+            "wdth" 100;
 }
 
-a {
-    color: #333;
-    font-size: 14px;
-    text-decoration: none;
-    margin: 15px 0;
-}
-
-button {
-    border-radius: 20px;
-    border: 1px solid #ff4b2b;
-    background-color: #ff4b2b;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 45px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-}
-
-button:active {
-    transform: scale(0.95);
-}
-
-button:focus {
-    outline: none;
-}
-
-button.ghost {
-    background-color: transparent;
-    border-color: #ffffff;
-}
 
 form {
     background-color: #ffffff;
@@ -236,29 +208,4 @@ input {
     margin: 0 5px;
     height: 40px;
     width: 40px;
-}
-
-footer {
-    background-color: #222;
-    color: #fff;
-    font-size: 14px;
-    bottom: 0;
-    position: fixed;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 999;
-}
-
-footer p {
-    margin: 10px 0;
-}
-
-footer i {
-    color: red;
-}
-
-footer a {
-    color: #3c97bf;
-    text-decoration: none;
 }

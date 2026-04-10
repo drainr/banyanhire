@@ -32,7 +32,7 @@ function Login() {
     return (
         <div className="form-container sign-in-container">
             <form onSubmit={handleOnSubmit}>
-                <h1 className="league-gothic-font">SIGN IN</h1>
+                <h1 className="league-gothic-font  text-4xl">SIGN IN</h1>
                 <div className="social-container">
                     <a href="#" className="social">
                         <i className="fab fa-facebook-f" />
@@ -59,7 +59,7 @@ function Login() {
                     value={state.password}
                     onChange={handleChange}
                 />
-                <a href="#">Forgot your password?</a>
+                <a className="p-3" href="#">Forgot your password?</a>
                 <AquaButton text="Sign In"/>
 
             </form>
