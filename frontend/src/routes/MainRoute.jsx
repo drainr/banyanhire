@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthPage from "../pages/AuthPage.jsx";
 import Homepage from "../pages/Homepage.jsx";
 import NotFound from "../pages/NotFound.jsx";
+import SeekerDashboard from "../pages/SeekerDashboard.jsx";
 
 const MainRoute = () => {
   return (
@@ -9,6 +10,7 @@ const MainRoute = () => {
       {/* Public */}
       <Route path="/" element={<Homepage />} />
       <Route path="/auth" element={<AuthPage />} />
+        <Route path="/SeekerDashboard" element={<SeekerDashboard />} />
 {/* 
       <Route element={<PrivateRoute />}>
         <Route path="/recruiter" element={<RecruiterDashboard />} />

@@ -42,6 +42,15 @@ p {
     letter-spacing: 0.5px;
     margin: 20px 0 30px;
 }
+.league-gothic-font {
+    font-family: "League Gothic", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    letter-spacing: 2px;
+    transform: skewX(-10deg);
+    font-variation-settings:
+            "wdth" 100;
+}
 
 
 form {
