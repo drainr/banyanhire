@@ -33,9 +33,9 @@ body {
 
 .league-gothic-font {
     font-family: "League Gothic", sans-serif;
-    font-weight: 700;
+    font-weight: 550;
     font-style: normal;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     transform: skewX(-10deg);
     font-variation-settings:
             "wdth" 100;
