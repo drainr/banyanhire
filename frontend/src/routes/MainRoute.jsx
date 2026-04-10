@@ -7,8 +7,8 @@ const MainRoute = () => {
   return (
     <Routes>
       {/* Public */}
-      <Route path="/auth" element={<Homepage />} />
-      <Route path="/" element={<AuthPage />} />
+      <Route path="/" element={<Homepage />} />
+      <Route path="/auth" element={<AuthPage />} />
 {/* 
       <Route element={<PrivateRoute />}>
         <Route path="/recruiter" element={<RecruiterDashboard />} />
