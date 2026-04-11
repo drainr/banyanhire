@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../components/forms/styles.css";
+import "../styles.css";
 import SignInForm from "./Login.jsx";
 import SignUpForm from "./SignUp.jsx";
 import NavbarAnimationButton from "../components/buttons/NavbarAnimationButton.jsx";
