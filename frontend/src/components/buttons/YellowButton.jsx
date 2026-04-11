@@ -14,7 +14,7 @@ const StyledWrapper = styled.div`
    padding: 15px 25px;
    border: none;
    border-radius: 30px;
-   color: #FAF3E8;
+   color: #583927;
    z-index: 1;
    background: #F6E58D;
    position: relative;
@@ -38,7 +38,8 @@ const StyledWrapper = styled.div`
   }
 
   button:hover {
-   color: #F6E58D;
+   color: #583927;
+      background: #FAF3E8;
   }
 
   button:hover::before {
