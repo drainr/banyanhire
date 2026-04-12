@@ -6,7 +6,7 @@ import { CiBookmark } from "react-icons/ci";
 
 const SeekerDashboard = () => {
     return (
-        <div className="min-h-screen w-full">
+        <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-[250px] fixed">
                 <ul className="mt-20 league-gothic-font text-2xl text-[#FAF3E8]">
                    <li className="flex items-center gap-2 justify-center"><IoCompassOutline style={{}} /><a>
@@ -14,9 +14,9 @@ const SeekerDashboard = () => {
                     <li className="flex items-center gap-2 justify-center"><CiBookmark /><a>Saved</a></li>
                 </ul>
                 <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
-                <ul className="fixed left-15 bottom-0 flex flex-col text-2xl">
+                <ul className="fixed left-14 bottom-3 flex flex-col text-2xl">
                 <li className="flex items-center gap-2 justify-center league-gothic-font text-[#FAF3E8]"><a>Profile</a></li>
-                    <li className="flex items-center gap-2 justify-center"><PinkButton text="Logout" /></li>
+                    <li className="flex items-center gap-2 p-2 justify-center"><PinkButton text="Logout" /></li>
             </ul>
             </div>
             <div className="flex flex-col justify-center items-center w-full">
