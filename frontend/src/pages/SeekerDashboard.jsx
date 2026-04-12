@@ -3,6 +3,8 @@ import PinkButton from "../components/buttons/PinkButton.jsx";
 import JobCard from "../components/JobCard.jsx";
 import { IoCompassOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
+import Searchbar from "../components/Searchbar.jsx";
+import Pagination from "../components/Pagination.jsx";
 
 const SeekerDashboard = () => {
     return (
@@ -19,10 +21,20 @@ const SeekerDashboard = () => {
                     <li className="flex items-center gap-2 p-2 justify-center"><PinkButton text="Logout" /></li>
             </ul>
             </div>
-            <div className="flex flex-col justify-center items-center w-full">
+            <nav className="bg-[#FAF3E8] shadow-md w-2/2 h-[80px]">
+                <div> <Searchbar /> </div>
+            </nav>
+            <div className="flex flex-wrap justify-center items-center w-full">
+                <JobCard />
+                <JobCard />
+                <JobCard />
+                <JobCard />
+                <JobCard />
+                <JobCard />
+                <JobCard />
                 <JobCard />
             </div>
-
+            <Pagination />
         </div>
     );
 };
