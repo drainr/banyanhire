@@ -54,7 +54,9 @@ const SeekerDashboard = ({ profile, profileImage }) => {
                 <JobCard />
                 <JobCard />
             </div>
+            <div className="ml-[250px] pb-20">
             <Pagination />
+            </div>
         </div>
     );
 };
