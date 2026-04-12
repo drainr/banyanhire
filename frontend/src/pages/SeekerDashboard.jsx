@@ -5,8 +5,10 @@ import { IoCompassOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
+import { useNavigate } from "react-router-dom";
 
 const SeekerDashboard = ({ profile, profileImage }) => {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-[250px] fixed">
@@ -37,7 +39,7 @@ const SeekerDashboard = ({ profile, profileImage }) => {
                     </li>
 
                     <li className="flex items-center gap-2 p-2 justify-center">
-                        <PinkButton text="Logout" />
+                        <PinkButton text="Logout" onClick={() => navigate("/auth")}  />
                     </li>
                 </ul>
             </div>
