@@ -1,17 +1,17 @@
 import React from 'react';
 import PinkButton from "../components/buttons/PinkButton.jsx";
-import JobCard from "../components/JobCard.jsx";
 import { IoCompassOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
+import JobCardsGrid from "../components/JobCards/JobCardsGrid.jsx";
 
 const SeekerDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
-            <div className="bg-[#583927] h-screen w-[250px] fixed">
+            <div className="bg-[#583927] h-screen w-62.5 fixed">
                 <ul className="mt-20 league-gothic-font text-2xl text-[#FAF3E8]">
                    <li className="flex items-center gap-2 justify-center"><IoCompassOutline style={{}} /><a>
                        Explore</a></li>
@@ -43,22 +43,17 @@ const SeekerDashboard = ({ profile, profileImage }) => {
                     </li>
                 </ul>
             </div>
-            <nav className="bg-[#FAF3E8] shadow-md w-2/2 h-[80px]">
+            <nav className="bg-[#FAF3E8] shadow-md ml-62.5 h-20">
                 <div> <Searchbar /> </div>
             </nav>
-            <div className="flex flex-wrap justify-center items-center w-full">
-                <JobCard />
-                <JobCard />
-                <JobCard />
-                <JobCard />
-                <JobCard />
-                <JobCard />
-                <JobCard />
-                <JobCard />
-            </div>
-            <div className="ml-[250px] pb-20">
-            <Pagination />
-            </div>
+            <main className="ml-62.5 pb-20">
+                {/* grid uses cards in JobCards */}
+                {/* each card is individually made and added to the grid using factory */}
+                <JobCardsGrid />
+                <div className="pb-20">
+                    <Pagination />
+                </div>
+            </main>
         </div>
     );
 };
