@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Overlay = ({
+const OverlayHome = ({
 	title = 'Grow Your Career',
 	className = '',
 }) => {
@@ -15,4 +15,4 @@ const Overlay = ({
 	);
 };
 
-export default Overlay;
+export default OverlayHome;

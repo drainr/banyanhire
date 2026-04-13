@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
-import VideoBox from '../components/HomepageComponents/VideoBox.jsx';
+import VideoBox from '../components/HomepageComponents/VideoBoxHome.jsx';
 import FindJob from '../components/HomepageComponents/FindJobBTN.jsx';
 import HireNow from '../components/HomepageComponents/HireNowBTN.jsx';
 

@@ -1,8 +1,8 @@
 // this wraps and render the hero mp4. it will loop the video
 
 import React from 'react';
-import heroVideo from './hero.mp4';
-import OverlayHome from './Homepageoverlay.jsx';
+import heroVideo from '../HomepageComponents/hero.mp4';
+import OverlayApproval from './ApproavalOverlay.jsx';
 
 // video box config
 const VideoBox = ({
@@ -33,7 +33,7 @@ const VideoBox = ({
 						videoElement.play();
 					}}
 				/>
-				<OverlayHome />
+				<OverlayApproval />
 			</div>
 		</section>
 	);
