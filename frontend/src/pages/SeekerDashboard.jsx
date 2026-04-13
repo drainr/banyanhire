@@ -5,7 +5,7 @@ import { CiBookmark } from "react-icons/ci";
 import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
-import JobCardsGrid from "../components/JobCards/JobCardsGrid.jsx";
+import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 
 const SeekerDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
