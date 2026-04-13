@@ -6,9 +6,21 @@ import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
+import useJobs from "../Hooks/useJobs.js";
 
 const SeekerDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
+    const pageSize = 8;
+    // Tracks currently displayed.
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const { jobs, totalPages, loading, error } = useJobs(currentPage, pageSize);
+
+    React.useEffect(() => {
+        if (currentPage > totalPages) {
+            setCurrentPage(totalPages);
+        }
+    }, [currentPage, totalPages]);
+
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-62.5 fixed">
@@ -49,9 +61,24 @@ const SeekerDashboard = ({ profile, profileImage }) => {
             <main className="ml-62.5 pb-20">
                 {/* grid uses cards in JobCards */}
                 {/* each card is individually made and added to the grid using factory */}
-                <JobCardsGrid />
+                {loading && (
+                    <div className="mx-auto w-full max-w-7xl px-4 py-8 text-center text-[#583927]">
+                        Loading jobs...
+                    </div>
+                )}
+                {!loading && error && (
+                    <div className="mx-auto w-full max-w-7xl px-4 py-8 text-center text-[#BB616D]">
+                        {error}
+                    </div>
+                )}
+                {!loading && !error && <JobCardsGrid cards={jobs} />}
                 <div className="pb-20">
-                    <Pagination />
+                    {/* Keep pagination and grid in sync via shared currentPage state. */}
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
                 </div>
             </main>
         </div>

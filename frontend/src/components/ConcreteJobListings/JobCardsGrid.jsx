@@ -1,9 +1,10 @@
 import React from 'react';
 import JobCardTemplate from './JobCardTemplate.jsx';
-import { createJobCardCollection } from './jobCardFactory.js';
+import { createPaginatedJobCardCollection } from './jobCardFactory.js';
 
-const JobCardsGrid = ({ count = 8 }) => {
-  const jobCards = createJobCardCollection(count);
+// Receives the active page and renders only that page's card slice.
+const JobCardsGrid = ({ page = 1, pageSize = 8 }) => {
+  const jobCards = createPaginatedJobCardCollection(page, pageSize);
 
   return (
     <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-6 px-4 py-8 sm:grid-cols-2 xl:grid-cols-4">
