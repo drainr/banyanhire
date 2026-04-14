@@ -11,16 +11,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    message: "BanyanHire API is running"
-  });
-});
-
-app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "ok" });
-});
-
 const port = process.env.PORT || 3005;
 
 connectDB().then(() => {
