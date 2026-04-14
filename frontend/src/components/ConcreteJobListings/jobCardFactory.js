@@ -34,18 +34,3 @@ export const createJobCard = (overrides = {}) => ({
 export const createJobCardCollection = (count = jobCardTemplates.length) => {
   return jobCardTemplates.slice(0, count).map((card) => createJobCard(card));
 };
-
-// Returns card count
-export const getJobCardCount = () => jobCardTemplates.length;
-
-// Builds page
-export const createPaginatedJobCardCollection = (page = 1, pageSize = 8) => {
-  const safePage = Math.max(1, page);
-  const safePageSize = Math.max(1, pageSize);
-  const startIndex = (safePage - 1) * safePageSize;
-  const endIndex = startIndex + safePageSize;
-
-  return jobCardTemplates
-    .slice(startIndex, endIndex)
-    .map((card) => createJobCard(card));
-};
