@@ -5,6 +5,7 @@ import NotFound from "../pages/NotFound.jsx";
 import UserProfile from "../pages/UserProfile.jsx";
 import SeekerDashboard from "../pages/SeekerDashboard.jsx";
 import PendingApproval from "../pages/PendingApproval.jsx";
+import RecruiterDashboard from "../pages/RecruiterDashboard.jsx";
 
 const MainRoute = () => {
   return (
@@ -15,6 +16,7 @@ const MainRoute = () => {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/SeekerDashboard" element={<SeekerDashboard />} />
         <Route path="/pending-approval" element={<PendingApproval />} />
+       <Route path="/Recruiter" element={<RecruiterDashboard />} />
 {/* 
       <Route element={<PrivateRoute />}>
         <Route path="/recruiter" element={<RecruiterDashboard />} />
