@@ -42,12 +42,15 @@ const StyledWrapper = styled.div`
     position: relative;
     width: 100%;
     max-width: 320px;
+    height: 480px;
     background: #583927;
     color: #faf3e8;
     box-shadow: 25px 20px 20px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     border-radius: 16px;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
+    display: flex;
+    flex-direction: column;
   }
 
   .card:hover {
@@ -87,6 +90,7 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     gap: 14px;
     padding: 22px;
+    flex: 1;
   }
 
   .headerRow {
@@ -114,6 +118,10 @@ const StyledWrapper = styled.div`
     font-weight: 700;
     font-size: 1.45rem;
     line-height: 1.1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .meta {
@@ -126,6 +134,11 @@ const StyledWrapper = styled.div`
     margin: 0;
     line-height: 1.55;
     color: rgba(250, 243, 232, 0.94);
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 6.2em;
   }
 
 `;
