@@ -7,22 +7,22 @@ import { HiOutlineBriefcase } from "react-icons/hi";
 
 const dashboardCards = [
     {
-        title: "Job Postings",
-        text: "View and manage all jobs you have posted.",
+        title: "Manage Users",
+        text: "View and manage all Users.",
         icon: <CiViewList size={34} />,
-        path: "/recruiter/jobs",
+        path: "/admin/jobs",
     },
     {
-        title: "Create Job Posting",
-        text: "Create a new academic job posting for applicants.",
+        title: "Manage Job Posting",
+        text: "Review Job Postings by Companies.",
         icon: <IoCreateOutline size={34} />,
-        path: "/recruiter/create",
+        path: "/admin/review",
     },
     {
-        title: "View Applicants",
-        text: "See who applied and review candidate information.",
+        title: "View Approvals",
+        text: "See who Signed Up and review Candidate.",
         icon: <BsEye size={34} />,
-        path: "/recruiter/applicants",
+        path: "/pending-approval",
     },
     {
         title: "Job Overview",

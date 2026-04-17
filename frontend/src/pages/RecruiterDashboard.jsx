@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import RecruiterJobCard from "../components/RecruiterJobCard.jsx";
+import RecruiterDashboardBoxes from "../components/RecruiterDashboardComponents/RecruiterDashboardBoxes.jsx";
 
 const RecruiterDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
@@ -50,8 +51,9 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
                 <div> <Searchbar /> </div>
             </nav>
             <main className="ml-62.5 pb-20">
-                <RecruiterJobCard title="Random"/>
-                <RecruiterJobCard title="Test123"/>
+                <div className="m-8">
+                <RecruiterDashboardBoxes />
+                </div>
             </main>
         </div>
     );
