@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 import AquaButton from "../components/buttons/AquaButton.jsx";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         email: "",
         password: ""
     });
+    const [error, setError] = useState("");
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleChange = evt => {
         const value = evt.target.value;
         setState({
@@ -15,36 +21,25 @@ function Login() {
         });
     };
 
-    const handleOnSubmit = evt => {
+    const handleOnSubmit = async evt => {
         evt.preventDefault();
+        setError("");
 
         const { email, password } = state;
-        alert(`You are login with email: ${email} and password: ${password}`);
+        const result = await login({ email, password });
 
-        for (const key in state) {
-            setState({
-                ...state,
-                [key]: ""
-            });
+        if (result.token) {
+            navigate("/profile");
+            return;
         }
+
+        setError(result.message || "Login failed");
     };
 
     return (
         <div className="form-container sign-in-container">
             <form onSubmit={handleOnSubmit}>
                 <h1 className="league-gothic-font  text-4xl">SIGN IN</h1>
-                <div className="social-container">
-                    <a href="#" className="social">
-                        <i className="fab fa-facebook-f" />
-                    </a>
-                    <a href="#" className="social">
-                        <i className="fab fa-google-plus-g" />
-                    </a>
-                    <a href="#" className="social">
-                        <i className="fab fa-linkedin-in" />
-                    </a>
-                </div>
-                <span>or use your account</span>
                 <input
                     type="email"
                     placeholder="Email"
@@ -60,8 +55,8 @@ function Login() {
                     onChange={handleChange}
                 />
                 <a className="p-3" href="#">Forgot your password?</a>
-                <AquaButton text="Sign In"/>
-
+                {error && <p className="text-red-600">{error}</p>}
+                <AquaButton text="Sign In" />
             </form>
         </div>
     );

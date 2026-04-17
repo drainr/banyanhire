@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import GreenButton from "../components/buttons/GreenButton.jsx";
-
+import { AuthContext } from "../context/AuthContext";
 
 function SignUp() {
-    const [state, setState] = React.useState({
+    const [state, setState] = useState({
         name: "",
         email: "",
-        password: ""
+        password: "",
+        role: ""
     });
+    const [error, setError] = useState("");
+    const { register } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleChange = evt => {
         const value = evt.target.value;
         setState({
@@ -16,38 +22,52 @@ function SignUp() {
         });
     };
 
-    const handleOnSubmit = evt => {
+    const handleRoleSelect = (role) => {
+        setState({
+            ...state,
+            role: role.toLowerCase()
+        });
+    };
+
+    const handleOnSubmit = async evt => {
         evt.preventDefault();
+        setError("");
 
-        const { name, email, password } = state;
-        alert(
-            `You are sign up with name: ${name} email: ${email} and password: ${password}`
-        );
-
-        for (const key in state) {
-            setState({
-                ...state,
-                [key]: ""
-            });
+        const { name, email, password, role } = state;
+        if (!role) {
+            setError("Please select a role");
+            return;
         }
+        const result = await register({ name, email, password, role });
+
+        if (result.token) {
+            navigate("/profile");
+            return;
+        }
+
+        setError(result.message || "Registration failed");
     };
 
     return (
         <div className="form-container sign-up-container">
             <form onSubmit={handleOnSubmit}>
                 <h1 className="league-gothic-font text-[#583927] text-4xl">SIGN UP</h1>
-                <div className="social-container">
-                    <a href="#" className="social">
-                        <i className="fab fa-facebook-f" />
-                    </a>
-                    <a href="#" className="social">
-                        <i className="fab fa-google-plus-g" />
-                    </a>
-                    <a href="#" className="social">
-                        <i className="fab fa-linkedin-in" />
-                    </a>
+                <div className="mb-4 display-flex gap-10">
+                <button 
+                    type="button"
+                    className={`btn border-none shadow-none mr-2 ${state.role === 'seeker' ? 'bg-[#B5CD88] text-white' : 'bg-[#eee]'}`} 
+                    onClick={() => handleRoleSelect("seeker")}
+                >
+                    Seeker
+                </button>
+                <button 
+                    type="button"
+                    className={`btn border-none shadow-none ${state.role === 'recruiter' ? 'bg-[#B5CD88] text-white' : 'bg-[#eee]'}`} 
+                    onClick={() => handleRoleSelect("recruiter")}
+                >
+                    Recruiter
+                </button>
                 </div>
-                <span>or use your email for registration</span>
                 <input
                     type="text"
                     name="name"
@@ -70,6 +90,7 @@ function SignUp() {
                     onChange={handleChange}
                     placeholder="Password"
                 />
+                {error && <p className="text-red-600">{error}</p>}
                 <GreenButton text="Sign Up" />
             </form>
         </div>
