@@ -6,9 +6,23 @@ import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
+import useJobs from "../Hooks/useJobs.js";
 
 const SeekerDashboard = ({ profile, profileImage }) => {
+    const pageSize = 8;
+    const [currentPage, setCurrentPage] = React.useState(1);
+    // Jobs now come from the backend instead of local hardcoded templates.
+    const { jobs, isLoading, error } = useJobs();
+    const maxPage = Math.max(1, Math.ceil(jobs.length / pageSize));
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        // If result count shrinks, keep current page inside the valid range.
+        if (currentPage > maxPage) {
+            setCurrentPage(maxPage);
+        }
+    }, [currentPage, maxPage]);
+
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-62.5 fixed">
@@ -49,9 +63,17 @@ const SeekerDashboard = ({ profile, profileImage }) => {
             <main className="ml-62.5 pb-20">
                 {/* grid uses cards in JobCards */}
                 {/* each card is individually made and added to the grid using factory */}
-                <JobCardsGrid />
+                {isLoading && <p className="px-8 pt-6 text-[#583927]">Loading jobs...</p>}
+                {error && <p className="px-8 pt-6 text-[#BB616D]">{error}</p>}
+                {!isLoading && !error && (
+                    <JobCardsGrid jobs={jobs} currentPage={currentPage} pageSize={pageSize} />
+                )}
                 <div className="pb-20">
-                    <Pagination />
+                    <Pagination
+                        currentPage={currentPage}
+                        maxPage={maxPage}
+                        onPageSelect={setCurrentPage}
+                    />
                 </div>
             </main>
         </div>

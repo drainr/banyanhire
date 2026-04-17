@@ -18,7 +18,7 @@ const MainRoute = () => {
         <Route path="/pending-approval" element={<PendingApproval />} />
        <Route path="/Recruiter" element={<RecruiterDashboard />} />
 {/* 
-      <Route element={<PrivateRoute />}>
+      <Route element={<PrivateRoute />}>3
         <Route path="/recruiter" element={<RecruiterDashboard />} />
         <Route path="/seeker" element={<SeekerDashboard />} />
         <Route path="/admin" element={<AdminDashboard />} />
