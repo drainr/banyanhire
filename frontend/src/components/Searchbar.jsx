@@ -16,7 +16,7 @@ const StyledWrapper = styled.div`
     .input-wrapper {
         position: relative;
         width: 200px;
-        left:20%;
+        left:5%;
     }
 
     .input-box {

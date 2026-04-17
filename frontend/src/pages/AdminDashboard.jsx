@@ -8,6 +8,7 @@ import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import RecruiterJobCard from "../components/RecruiterJobCard.jsx";
+import AdminDashboardBoxes from "../components/AdminDashboardComponents/AdminDashboardBoxes.jsx";
 
 const RecruiterDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
@@ -16,30 +17,14 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
             <div className="bg-[#583927] h-screen w-62.5 fixed">
                 <ul className="mt-20 text-left ml-8 text-md font-bold text-[#FAF3E8]">
                     <li className="flex items-center gap-2 pb-2 ">< CiViewList style={{}} /><a>
-                        Job Postings</a></li>
-                    <li className="flex items-center gap-2 pb-2 "><IoCreateOutline /><a>Create Job Posting</a></li>
-                    <li className="flex items-center gap-2 pb-2 "><BsEye /><a>View Applicants</a></li>
+                        Dashboard </a></li>
+                    <li className="flex items-center gap-2 pb-2 "><IoCreateOutline /><a>Manage Postings</a></li>
+                    <li className="flex items-center gap-2 pb-2 "><IoCreateOutline /><a>Manage Users</a></li>
+                    <li className="flex items-center gap-2 pb-2 "><BsEye /><a>View Approvals</a></li>
                 </ul>
                 <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
                 <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
-                    <li className="flex flex-row items-center league-gothic-font text-[#FAF3E8]">
 
-                        <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
-                            {profileImage ? (
-                                <img
-                                    src={profileImage}
-                                    alt="Profile"
-                                    className="w-full h-full object-cover"
-                                />
-                            ) : (
-                                <span className="text-xl text-[#BB616D] font-bold">
-          {profile?.name?.charAt(0) || "+"}
-        </span>
-                            )}
-                        </div>
-
-                        <a>{profile?.name || "Profile"}</a>
-                    </li>
 
                     <li className="flex items-center gap-2 p-2 justify-center">
                         <PinkButton text="Logout" onClick={() => navigate("/auth")}  />
@@ -50,9 +35,10 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
                 <div> <Searchbar /> </div>
             </nav>
             <main className="ml-62.5 pb-20">
-                <RecruiterJobCard title="Random"/>
-                <RecruiterJobCard title="Test123"/>
-            </main>
+                <div className="m-8">
+                <AdminDashboardBoxes />
+        </div>
+</main>
         </div>
     );
 };
