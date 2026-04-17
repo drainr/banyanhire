@@ -21,14 +21,12 @@ const StyledWrapper = styled.div`
 
   .cta span {
     padding-bottom: 7px;
-    font-size: 20px;
+    font-size: 15px;
     padding-right: 15px;
     text-transform: uppercase;
     color: #FAF3E8;
-    font-family: "League Gothic", sans-serif ;
-      font-weight: 700;
+      font-weight: 200;
       font-style: normal;
-      letter-spacing: 2px;
       transform: skewX(-10deg);
       font-variation-settings:
               "wdth" 100;
@@ -45,7 +43,7 @@ const StyledWrapper = styled.div`
   .hover-underline-animation:after {
     content: "";
     position: absolute;
-    width: 65%;
+    width: 85%;
     transform: scaleX(0);
     height: 2px;
     bottom: 0;

@@ -15,9 +15,7 @@ const Navbar = () => {
             </div>
             <div className="navbar-center">
                 <NavbarAnimationButton text="Find a Job"/>
-               <a className="hover-underline-animation navbar-item  mr-4 text-xl  text-[#FAF3E8] league-gothic-font" href="/">Hire now</a>
-                <a className="hover-underline-animation navbar-item text-xl text-[#FAF3E8] league-gothic-font" href="/">Find a job</a>
-
+                <NavbarAnimationButton text="Hire Now"/>
             </div>
             <div className="navbar-end">
                 <button onClick={() => navigate("/auth")} className="btn rounded-3xl bg-transparent text-[#FAF3E8] border-[#FAF3E8]"> LogIn</button>
