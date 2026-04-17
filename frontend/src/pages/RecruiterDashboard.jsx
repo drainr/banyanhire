@@ -7,17 +7,18 @@ import Searchbar from "../components/Searchbar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
+import RecruiterJobCard from "../components/RecruiterJobCard.jsx";
 
 const RecruiterDashboard = ({ profile, profileImage }) => {
     const navigate = useNavigate();
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-62.5 fixed">
-                <ul className="mt-20 league-gothic-font text-2xl text-[#FAF3E8]">
-                    <li className="flex items-center gap-2 justify-center">< CiViewList style={{}} /><a>
-                        View Job Postings</a></li>
-                    <li className="flex items-center gap-2 justify-center"><IoCreateOutline /><a>Create Job Posting</a></li>
-                    <li className="flex items-center gap-2 justify-center"><BsEye /><a>View Applicants</a></li>
+                <ul className="mt-20 text-left ml-8 text-md font-bold text-[#FAF3E8]">
+                    <li className="flex items-center gap-2 pb-2 ">< CiViewList style={{}} /><a>
+                        Job Postings</a></li>
+                    <li className="flex items-center gap-2 pb-2 "><IoCreateOutline /><a>Create Job Posting</a></li>
+                    <li className="flex items-center gap-2 pb-2 "><BsEye /><a>View Applicants</a></li>
                 </ul>
                 <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
                 <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
@@ -49,9 +50,8 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
                 <div> <Searchbar /> </div>
             </nav>
             <main className="ml-62.5 pb-20">
-                <div className="pb-20">
-                    <Pagination />
-                </div>
+                <RecruiterJobCard title="Random"/>
+                <RecruiterJobCard title="Test123"/>
             </main>
         </div>
     );
