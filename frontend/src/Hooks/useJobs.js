@@ -1,5 +1,5 @@
 import React from 'react';
-import { fetchJobs } from '../api/jobsApi.js';
+import { fetchJobs } from '../utils/Api.js';
 
 // Centralized jobs loader used by dashboards to keep API state logic in one place.
 const useJobs = () => {
