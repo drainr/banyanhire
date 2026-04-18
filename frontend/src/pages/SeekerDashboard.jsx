@@ -26,10 +26,10 @@ const SeekerDashboard = ({ profile, profileImage }) => {
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-62.5 fixed">
-                <ul className="mt-20 league-gothic-font text-2xl text-[#FAF3E8]">
-                   <li className="flex items-center gap-2 justify-center"><IoCompassOutline style={{}} /><a>
+                <ul className="mt-20 text-left ml-8 text-md font-bold text-[#FAF3E8]">
+                   <li className="flex items-center gap-2 "><IoCompassOutline style={{}} /><a>
                        Explore</a></li>
-                    <li className="flex items-center gap-2 justify-center"><CiBookmark /><a>Saved</a></li>
+                    <li className="flex items-center gap-2 "><CiBookmark /><a>Saved</a></li>
                 </ul>
                 <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
                 <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
