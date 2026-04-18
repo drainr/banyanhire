@@ -23,7 +23,6 @@ const StyledWrapper = styled.div`
     padding-bottom: 7px;
     font-size: 15px;
     padding-right: 15px;
-    text-transform: uppercase;
     color: #FAF3E8;
       font-weight: 200;
       font-style: normal;

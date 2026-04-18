@@ -60,7 +60,7 @@ const HomepageExtraSection = () => {
                         A trusted network for careers in higher education.
                     </h3>
 
-                    <p className="mt-4 text-lg text-gray-700 max-w-3xl mx-auto leading-snug">
+                    <p className="mt-4 text-lg text-gray-700  mx-auto leading-snug">
                         Connect with institutions that are actively looking for talent,
                         from universities and colleges to research centers and educational organizations.
                     </p>
