@@ -29,7 +29,7 @@ const UniversityCarousel = () => {
                 </h3>
             </div>
 
-            <div className="relative w-full overflow-hidden rounded-lg">
+            <div className="relative w-full overflow-hidden rounded-4xl">
                 <div className="flex w-max animate-scroll gap-6">
                     {[...universities, ...universities].map((school, index) => (
                         <div
