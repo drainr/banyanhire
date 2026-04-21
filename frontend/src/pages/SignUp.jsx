@@ -41,7 +41,11 @@ function SignUp() {
         const result = await register({ name, email, password, role });
 
         if (result.token) {
-            navigate("/profile");
+            if (role === "recruiter") {
+                navigate("/recruiter-onboard");
+            } else {
+                navigate("/profile");
+            }
             return;
         }
 

@@ -7,6 +7,7 @@ import SeekerDashboard from "../pages/SeekerDashboard.jsx";
 import PendingApproval from "../pages/PendingApproval.jsx";
 import RecruiterDashboard from "../pages/RecruiterDashboard.jsx";
 import AdminDashboard from "../pages/AdminDashboard.jsx";
+import RecruiterOnboard from "../pages/RecruiterOnboard.jsx";
 
 const MainRoute = () => {
   return (
@@ -15,6 +16,7 @@ const MainRoute = () => {
       <Route path="/" element={<Homepage />} />
       <Route path="/auth" element={<AuthPage />} />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
         <Route path="/SeekerDashboard" element={<SeekerDashboard />} />
         <Route path="/pending-approval" element={<PendingApproval />} />
        <Route path="/Recruiter" element={<RecruiterDashboard />} />

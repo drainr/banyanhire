@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
+const { protect } = require("../middleware/authMiddleware");
 
 const generateToken = (id) => {
     return jwt.sign({ id }, 
@@ -82,6 +83,44 @@ router.post("/login", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Server error" });
 }
+});
+
+router.put("/update-company", protect, async (req, res) => {
+    try {
+        const { companyName, companyBio } = req.body;
+        
+        if (!companyName || !companyBio) {
+            return res.status(400).json({ message: "Please fill in all required fields" });
+        }
+
+        const user = await User.findById(req.user._id);
+        
+        if (user.role !== "recruiter") {
+            return res.status(403).json({ message: "Only recruiters can update company info" });
+        }
+
+        user.companyName = companyName;
+        user.companyBio = companyBio;
+        user.isApproved = false; // Reset approval status when updating
+
+        await user.save();
+
+        res.status(200).json({ 
+            message: "Company information updated successfully",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                companyName: user.companyName,
+                companyBio: user.companyBio,
+                isApproved: user.isApproved
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
 });
 
 module.exports = router;
