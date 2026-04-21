@@ -1,12 +1,12 @@
 import React from 'react';
-import GreenButton from '../buttons/GreenButton.jsx';
+import YellowButton from '../buttons/YellowButton.jsx';
 import { useNavigate } from "react-router-dom";
 
 const FindJob = () => {
     const navigate = useNavigate();
 	return (
 		<div>
-			<GreenButton text="Find Job" onClick={() => navigate("/auth")} />
+			<YellowButton text="Find Job" onClick={() => navigate("/auth")} />
 		</div>
 	);
 };

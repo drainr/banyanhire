@@ -68,6 +68,7 @@ const HomepageExtraSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-white rounded-2xl p-7 shadow text-center">
+                        <img src/>
                         <h4 className="text-2xl font-bold text-[#583927] mb-3">
                             Grow your career
                         </h4>
