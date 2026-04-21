@@ -11,7 +11,7 @@ const AquaButton = ({text, onClick}) => {
 
 const StyledWrapper = styled.div`
   button {
-   padding: 15px 25px;
+   padding: 10px 20px;
    border: none;
    border-radius: 30px;
    color: #583927;
