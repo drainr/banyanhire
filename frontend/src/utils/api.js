@@ -1,8 +1,8 @@
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3005";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3005/api";
 
 // Job-specific API layer used for dashboard listings.
 export const fetchJobs = async () => {
-	const response = await fetch(`${API_BASE}/jobs`);
+	const response = await fetch(`${API_BASE_URL}/jobs`);
 
 	if (!response.ok) {
 		let message = "Failed to fetch jobs";
@@ -24,7 +24,7 @@ export const fetchJobs = async () => {
 };
 
 const request = async (path, body) => {
-  const response = await fetch(`${API_BASE}${path}`, {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
