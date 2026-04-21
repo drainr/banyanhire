@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
    z-index: 1;
    background: #BB616D;
    position: relative;
-   font-weight: 1000;
+   font-weight: 600;
    font-size: 17px;
    transition: all 250ms;
    overflow: hidden;
