@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import YellowButton from '../buttons/YellowButton.jsx';
-import { FaRegBookmark } from 'react-icons/fa6';
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 
 const JobCardTemplate = ({
+  id,
   title,
   company,
   type,
@@ -13,6 +15,9 @@ const JobCardTemplate = ({
   description,
   buttonText = 'read more',
 }) => {
+  const navigate = useNavigate();
+  const [saved, setSaved] = useState(false);
+
   return (
     <StyledWrapper>
       <article className="card">
@@ -22,7 +27,16 @@ const JobCardTemplate = ({
         </div>
         <div className="content">
           <div className="headerRow">
-            <FaRegBookmark className="bookmark" />
+            <div
+              className="bookmark"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSaved(!saved);
+                // TODO: await api(`/bookmarks/${id}`, { method: saved ? "DELETE" : "POST", token: user.token })
+              }}
+            >
+              {saved ? <FaBookmark /> : <FaRegBookmark />}
+            </div>
             <div>
               <p className="company">{company}</p>
               <p className="heading">{title}</p>
@@ -30,7 +44,10 @@ const JobCardTemplate = ({
           </div>
           <p className="meta">{location}</p>
           <p className="para">{description}</p>
-          <YellowButton text={buttonText} />
+          <YellowButton
+            text={buttonText}
+            onClick={() => navigate(`/jobs/${id}`)}
+          />
         </div>
       </article>
     </StyledWrapper>
@@ -141,6 +158,16 @@ const StyledWrapper = styled.div`
     min-height: 6.2em;
   }
 
+  .bookmark {
+    margin-top: 4px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .bookmark:hover {
+    color: #B5CD88;
+  }
 `;
 
 export default JobCardTemplate;

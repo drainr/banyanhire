@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = () => {
+const Input = ({ onChange }) => {
     return (
         <StyledWrapper>
             <div className="input-wrapper">
-                <input className="input-box" type="text" placeholder="Enter Job Title" />
+                <input className="input-box" type="text" placeholder="Enter Job Title" onChange={onChange} />
                 <span className="underline" />
             </div>
         </StyledWrapper>
