@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const { protect } = require("../middleware/authMiddleware");
+const { sendEmail, recruiterApprovedEmail, recruiterRejectedEmail } = require("../config/email");
 
 const generateToken = (id) => {
     return jwt.sign({ id }, 
@@ -115,6 +116,97 @@ router.put("/update-company", protect, async (req, res) => {
                 companyName: user.companyName,
                 companyBio: user.companyBio,
                 isApproved: user.isApproved
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// PUT - Approve a recruiter (admin only)
+router.put("/approve-recruiter/:userId", protect, async (req, res) => {
+    try {
+        // Check if user is admin
+        if (req.user.role !== "admin") {
+            return res.status(403).json({ message: "Only admins can approve recruiters" });
+        }
+
+        const user = await User.findById(req.params.userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (user.role !== "recruiter") {
+            return res.status(400).json({ message: "User is not a recruiter" });
+        }
+
+        user.isApproved = true;
+        await user.save();
+
+        // Send approval email
+        const emailTemplate = recruiterApprovedEmail(user.name);
+        await sendEmail({
+            to: user.email,
+            subject: emailTemplate.subject,
+            html: emailTemplate.html,
+            text: emailTemplate.text,
+        });
+
+        res.status(200).json({
+            message: "Recruiter approved successfully and email sent",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                isApproved: user.isApproved
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// PUT - Reject a recruiter (admin only)
+router.put("/reject-recruiter/:userId", protect, async (req, res) => {
+    try {
+        // Check if user is admin
+        if (req.user.role !== "admin") {
+            return res.status(403).json({ message: "Only admins can reject recruiters" });
+        }
+
+        const user = await User.findById(req.params.userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        if (user.role !== "recruiter") {
+            return res.status(400).json({ message: "User is not a recruiter" });
+        }
+
+        // Disable the account
+        user.isDisabled = true;
+        await user.save();
+
+        // Send rejection email
+        const emailTemplate = recruiterRejectedEmail(user.name);
+        await sendEmail({
+            to: user.email,
+            subject: emailTemplate.subject,
+            html: emailTemplate.html,
+            text: emailTemplate.text,
+        });
+
+        res.status(200).json({
+            message: "Recruiter rejected successfully and email sent",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                isDisabled: user.isDisabled
             }
         });
     } catch (error) {
