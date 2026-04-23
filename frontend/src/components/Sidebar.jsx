@@ -36,7 +36,7 @@ const Sidebar = () => {
         { path: "/recruiter", icon: <CiViewList />, label: "Dashboard" },
         { path: "/jobs", icon: <IoCompassOutline />, label: "Browse All Jobs" },
         { path: "/jobs/my", icon: <BsEye />, label: "My Job Postings" },
-        { path: "/jobs/new", icon: <IoCreateOutline />, label: "New Job Posting" },
+        { path: "/create-job", icon: <IoCreateOutline />, label: "New Job Posting" },
     ];
 
     const adminLinks = [
