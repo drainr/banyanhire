@@ -13,6 +13,7 @@ import JobDetails from "../pages/JobDetails.jsx";
 import JobListing from "../pages/JobListings.jsx";
 import CompanyProfile from "../pages/CompanyProfile.jsx";
 import CreateJob from "../pages/CreateEditJob.jsx";
+import RecruiterProfileAccordions from "../components/RecruiterDashboardComponents/RecruiterProfileAccordion.jsx";
 
 const MainRoute = () => {
   return (
@@ -40,6 +41,7 @@ const MainRoute = () => {
         <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
           <Route path="/recruiter-form" element={<CompanyProfile />}/>
           <Route path="/create-job" element={<CreateJob />}/>
+          <Route path="/RecruiterProfileAccordions" element={<RecruiterProfileAccordions />} />
       </Route>
 
       {/* Admin only */}
