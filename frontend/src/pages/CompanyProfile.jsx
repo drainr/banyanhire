@@ -55,14 +55,7 @@ function CompanyProfile() {
         "w-full rounded-2xl border border-[#E7D8C7] bg-white px-5 py-4 text-[#583927] placeholder:text-[#9C7C68] outline-none transition focus:border-[#BB616D] focus:ring-2 focus:ring-[#BB616D]/20";
 
     return (
-        <div className="min-h-screen bg-[#FAF3E8] px-6 py-10">
-            <div className="max-w-5xl mx-auto px-4">
-                <Link
-                    to="/recruiter"
-                    className="inline-block text-sm font-semibold text-[#BB616D] hover:underline mb-6"
-                >
-                    ← Back to Dashboard
-                </Link>
+            <div className="px-4">
 
                 <div className="bg-white rounded-[2rem] shadow-lg overflow-hidden">
                     <div className="bg-[#B5CD88] px-10 md:px-14 py-12">
@@ -202,7 +195,6 @@ function CompanyProfile() {
                     </form>
                 </div>
             </div>
-        </div>
     );
 }
 
