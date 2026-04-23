@@ -6,10 +6,16 @@ const authRoutes = require("./routes/auth");
 const jobRoutes = require("./routes/jobs");
 const applicationRoutes = require("./routes/applications");
 const protectedRoutes = require("./routes/protected");
+const emailRoutes = require("./routes/email");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+// Root route
+app.get("/", (req, res) => {
+  res.json({ message: "BanyanHire Backend Server is running ✓" });
+});
 
 const port = process.env.PORT || 3005;
 
@@ -19,6 +25,7 @@ connectDB().then(() => {
   app.use("/api/jobs", jobRoutes);
   app.use("/api/applications", applicationRoutes);
   app.use("/api/protected", protectedRoutes);
+  app.use("/api/email", emailRoutes);
 
   app.listen(port, () => console.log(`Listening on port: ${port}`));
 }).catch(console.error);
