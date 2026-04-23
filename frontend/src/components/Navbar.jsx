@@ -52,11 +52,11 @@ const Navbar = () => {
                         <span className="text-[#FAF3E8] mr-2">Hi, {user.name}</span>
                         <button
                             onClick={handleDashboardRedirect}
-                            className="btn rounded-3xl bg-transparent text-[#FAF3E8] border-[#FAF3E8]"
+                            className="btn rounded-3xl bg-[#583927] text-[#FAF3E8] border-[#FAF3E8]"
                         >
                             Dashboard
                         </button>
-                        <PinkButton text="Logout" onClick={handleLogout} scale={.5} />
+                        <PinkButton text="Logout" onClick={handleLogout}/>
                     </div>
                 ) : (
                     <>

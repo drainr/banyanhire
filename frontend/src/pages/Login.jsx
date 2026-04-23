@@ -33,9 +33,9 @@ function Login() {
             if (userRole === "recruiter" && !result.user.isApproved) {
                 navigate("/recruiter-onboard");
             } else if (userRole === "recruiter" && result.user.isApproved) {
-                navigate("/Recruiter");
+                navigate("/recruiter");
             } else if (userRole === "seeker") {
-                navigate("/SeekerDashboard");
+                navigate("/seeker");
             } else if (userRole === "admin") {
                 navigate("/admin");
             } else {

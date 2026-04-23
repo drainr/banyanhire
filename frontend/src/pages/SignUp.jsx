@@ -45,7 +45,7 @@ function SignUp() {
             if (userRole === "recruiter") {
                 navigate("/recruiter-onboard");
             } else if (userRole === "seeker") {
-                navigate("/SeekerDashboard");
+                navigate("/seeker");
             } else if (userRole === "admin") {
                 navigate("/admin");
             } else {

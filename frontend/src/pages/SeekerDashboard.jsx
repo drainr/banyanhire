@@ -1,9 +1,9 @@
 import React from 'react';
-import PinkButton from "../components/buttons/PinkButton.jsx";
-import { IoCompassOutline, IoBriefcaseOutline, IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline, IoBriefcaseOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
+import Sidebar from "../components/Sidebar.jsx";
 
 const ScrollableRow = ({ title, icon, children }) => (
     <div className="mb-8">
@@ -19,9 +19,8 @@ const ScrollableRow = ({ title, icon, children }) => (
 
 const SeekerDashboard = () => {
     const navigate = useNavigate();
-    const { user, logout } = useAuth();
+    const { user } = useAuth();
 
-    // Mock saved job, needs an api route
     const savedJobs = [
         { _id: "1", title: "Assistant Professor of CS", company: "USF", location: "Tampa, FL", salaryMin: 75000, salaryMax: 95000 },
         { _id: "2", title: "Data Analyst", company: "Raymond James", location: "St. Petersburg, FL", salaryMin: 60000, salaryMax: 80000 },
@@ -30,7 +29,6 @@ const SeekerDashboard = () => {
         { _id: "5", title: "UX Designer", company: "Nielsen", location: "Oldsmar, FL", salaryMin: 65000, salaryMax: 85000 },
     ];
 
-    // Mock applied jobs, needs an api route
     const appliedJobs = [
         { _id: "6", title: "Frontend Developer", company: "Publix", location: "Lakeland, FL", salaryMin: 70000, salaryMax: 90000, dateApplied: "2026-04-10", status: "Under Review" },
         { _id: "7", title: "IT Support Specialist", company: "BayCare", location: "Clearwater, FL", salaryMin: 45000, salaryMax: 60000, dateApplied: "2026-04-05", status: "Submitted" },
@@ -42,50 +40,14 @@ const SeekerDashboard = () => {
         return `${fmt(min)} – ${fmt(max)}`;
     };
 
-    const handleLogout = () => {
-        logout();
-        navigate("/auth");
-    };
-
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
-            {/* Sidebar */}
-            <div className="bg-[#583927] h-screen w-62.5 fixed">
-                <ul className="mt-20 text-left ml-8 text-md font-bold text-[#FAF3E8]">
-                    <li
-                        className="flex items-center gap-2 pb-2 cursor-pointer hover:text-[#91D8D4] transition-colors"
-                        onClick={() => navigate("/jobs")}
-                    >
-                        <IoCompassOutline /><a>Explore Jobs</a>
-                    </li>
-                    <li className="flex items-center gap-2 pb-2">
-                        <CiBookmark /><a>Saved Jobs</a>
-                    </li>
-                    <li className="flex items-center gap-2 pb-2">
-                        <IoBriefcaseOutline /><a>My Applications</a>
-                    </li>
-                </ul>
-                <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
-                <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
-                    <li className="flex flex-row items-center league-gothic-font text-[#FAF3E8]">
-                        <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
-                            <span className="text-xl text-[#BB616D] font-bold">
-                                {user?.name?.charAt(0) || "+"}
-                            </span>
-                        </div>
-                        <a>{user?.name || "Profile"}</a>
-                    </li>
-                    <li className="flex items-center gap-2 p-2 justify-center">
-                        <PinkButton text="Logout" onClick={handleLogout} />
-                    </li>
-                </ul>
-            </div>
-
-            {/* Main content */}
+            <Sidebar />
             <main className="ml-62.5 p-8">
                 <h1 className="league-gothic-font text-[#583927] text-4xl mb-8">
                     WELCOME, {user?.name?.toUpperCase() || "SEEKER"}
                 </h1>
+
                 <ScrollableRow
                     title="SAVED JOBS"
                     icon={<CiBookmark size={22} className="text-[#B5CD88]" />}
@@ -111,7 +73,6 @@ const SeekerDashboard = () => {
                     )}
                 </ScrollableRow>
 
-                {/* Applied Jobs Row */}
                 <ScrollableRow
                     title="MY APPLICATIONS"
                     icon={<IoBriefcaseOutline size={22} className="text-[#91D8D4]" />}
