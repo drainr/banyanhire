@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const GreenButton = ({text, onClick}) => {
+const GreenButton = ({text, onClick, type = "submit"}) => {
     return (
         <StyledWrapper>
-            <button onClick={onClick}>{text}</button>
+            <button type={type} onClick={onClick}>{text}</button>
         </StyledWrapper>
     );
 }
@@ -15,13 +15,14 @@ const StyledWrapper = styled.div`
    border: none;
    border-radius: 30px;
    color: #FAF3E8;
-   z-index: 1;
    background: #B5CD88;
    position: relative;
    font-weight: 600;
    font-size: 17px;
    transition: all 250ms;
-   overflow: hidden;
+   overflow: visible;
+   cursor: pointer;
+   z-index: 1;
   }
 
   button::before {
@@ -33,8 +34,9 @@ const StyledWrapper = styled.div`
    width: 0;
    border-radius: 15px;
    background-color: #FAF3E8;
-   z-index: -1;
-   transition: all 250ms
+   z-index: 0;
+   transition: all 250ms;
+   pointer-events: none;
   }
 
   button:hover {

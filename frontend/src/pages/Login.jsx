@@ -30,7 +30,9 @@ function Login() {
 
         if (result.token) {
             const userRole = result.user?.role;
-            if (userRole === "recruiter") {
+            if (userRole === "recruiter" && !result.user.isApproved) {
+                navigate("/recruiter-onboard");
+            } else if (userRole === "recruiter" && result.user.isApproved) {
                 navigate("/Recruiter");
             } else if (userRole === "seeker") {
                 navigate("/SeekerDashboard");

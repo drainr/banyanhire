@@ -41,8 +41,13 @@ function SignUp() {
         const result = await register({ name, email, password, role });
 
         if (result.token) {
-            if (role === "recruiter") {
+            const userRole = result.user?.role;
+            if (userRole === "recruiter") {
                 navigate("/recruiter-onboard");
+            } else if (userRole === "seeker") {
+                navigate("/SeekerDashboard");
+            } else if (userRole === "admin") {
+                navigate("/admin");
             } else {
                 navigate("/profile");
             }

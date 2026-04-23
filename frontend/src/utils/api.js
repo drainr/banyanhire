@@ -53,9 +53,9 @@ const request = async (path, body) => {
 };
 
 export const registerUser = async (userData) => {
-  return request("/api/auth/register", userData);
+  return request("/auth/register", userData);
 };
 
 export const loginUser = async (credentials) => {
-  return request("/api/auth/login", credentials);
+  return request("/auth/login", credentials);
 };
