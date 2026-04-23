@@ -29,7 +29,18 @@ function Login() {
         const result = await login({ email, password });
 
         if (result.token) {
-            navigate("/profile");
+            const userRole = result.user?.role;
+            if (userRole === "recruiter" && !result.user.isApproved) {
+                navigate("/recruiter-onboard");
+            } else if (userRole === "recruiter" && result.user.isApproved) {
+                navigate("/Recruiter");
+            } else if (userRole === "seeker") {
+                navigate("/SeekerDashboard");
+            } else if (userRole === "admin") {
+                navigate("/admin");
+            } else {
+                navigate("/profile");
+            }
             return;
         }
 

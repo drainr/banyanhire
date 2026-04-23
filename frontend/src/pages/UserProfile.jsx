@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import AquaButton from "../components/buttons/AquaButton.jsx";
+import { useAuth } from "../hooks/useAuth";
 
 export default function UserProfile() {
+  const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
 
   const [profile, setProfile] = useState({
-    name: "Jane Doe",
-    email: "jane@email.com",
-    phone: "555-123-4567",
-    location: "Sarasota, FL",
-    bio: "Recent CS graduate passionate about web development.",
-    skills: "React, JavaScript, Node.js, MongoDB",
-    education: "B.S. Computer Science, University of South Florida",
-    experience: "Frontend Intern (Summer 2025)",
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: "",
+    location: "",
+    bio: "",
+    skills: "",
+    education: "",
+    experience: "",
   });
 
   const [formData, setFormData] = useState({ ...profile });

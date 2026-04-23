@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import RecruiterJobCard from "../components/RecruiterJobCard.jsx";
 import AdminDashboardBoxes from "../components/AdminDashboardComponents/AdminDashboardBoxes.jsx";
+import { useAuth } from "../hooks/useAuth.js";
 
-const RecruiterDashboard = ({ profile, profileImage }) => {
+const AdminDashboard = () => {
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
+
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <div className="bg-[#583927] h-screen w-62.5 fixed">
@@ -24,10 +27,16 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
                 </ul>
                 <hr className="border-t border-[#FAF3E8] my-4 mr-5 ml-5" />
                 <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
-
-
+                    <li className="flex flex-row items-center league-gothic-font text-[#FAF3E8]">
+                        <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
+                            <span className="text-xl text-[#BB616D] font-bold">
+                                {user?.name?.charAt(0) || "+"}
+                            </span>
+                        </div>
+                        <a>{user?.name || "Admin"}</a>
+                    </li>
                     <li className="flex items-center gap-2 p-2 justify-center">
-                        <PinkButton text="Logout" onClick={() => navigate("/auth")}  />
+        <               PinkButton text="Logout" onClick={() => {logout(); navigate("/auth");}} />
                     </li>
                 </ul>
             </div>
@@ -43,4 +52,4 @@ const RecruiterDashboard = ({ profile, profileImage }) => {
     );
 };
 
-export default RecruiterDashboard;
+export default AdminDashboard;
