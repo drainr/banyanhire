@@ -28,7 +28,7 @@ const Sidebar = () => {
         { path: "/", icon: <IoHomeOutline />, label: "Home" },
         { path: "/seeker", icon: <IoBriefcaseOutline />, label: "Dashboard" },
         { path: "/jobs", icon: <IoCompassOutline />, label: "Explore Jobs" },
-        { path: "/profile", icon: <CiBookmark />, label: "Saved Jobs" },
+        { path: "/jobs/saved", icon: <CiBookmark />, label: "Saved Jobs" },
     ];
 
     const recruiterLinks = [
@@ -36,7 +36,7 @@ const Sidebar = () => {
         { path: "/recruiter", icon: <CiViewList />, label: "Dashboard" },
         { path: "/jobs", icon: <IoCompassOutline />, label: "Browse All Jobs" },
         { path: "/jobs/my", icon: <BsEye />, label: "My Job Postings" },
-        { path: "/jobs/new", icon: <IoCreateOutline />, label: "New Job Posting" },
+        { path: "/create-job", icon: <IoCreateOutline />, label: "New Job Posting" },
     ];
 
     const adminLinks = [
@@ -80,7 +80,7 @@ const Sidebar = () => {
             <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
                 <li
                     className="flex flex-row items-center league-gothic-font text-[#FAF3E8] cursor-pointer"
-                    onClick={() => navigate("/RecruiterProfileAccordions")}
+                    onClick={() => navigate(user?.role === "recruiter" ? "/recruiterprofile" : "/profile")}
                 >
                     <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
                         <span className="text-xl text-[#BB616D] font-bold">

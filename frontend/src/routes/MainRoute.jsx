@@ -25,6 +25,7 @@ const MainRoute = () => {
 
       {/* Any logged-in user */}
       <Route element={<PrivateRoute />}>
+        <Route path="/profile" element={<UserProfile />} />
         <Route path="/jobs" element={<JobListing />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
       </Route>
@@ -32,7 +33,6 @@ const MainRoute = () => {
       {/* Seeker only */}
       <Route element={<PrivateRoute allowedRoles={["seeker"]} />}>
         <Route path="/seeker" element={<SeekerDashboard />} />
-        <Route path="/profile" element={<UserProfile />} />
       </Route>
 
       {/* Recruiter only */}
@@ -48,7 +48,6 @@ const MainRoute = () => {
       {/* Admin only */}
       <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/profile" element={<UserProfile />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
