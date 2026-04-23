@@ -13,7 +13,7 @@ const generateToken = (id) => {
 };
 
 router.post("/register", async (req, res) => {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, companyBio, isApproved } = req.body;
 
     if (!name || !email || !password || !role) {
         return res.status(400).json({ message: "Please fill in all required fields" });
@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
             return res.status(400).json({ message: "Name already in use" });
         }
 
-        user = new User({ name, email, password, role }); 
+        user = new User({ name, email, password, role, companyBio, isApproved });
         await user.save();
 
         const token = generateToken(user._id);
@@ -42,8 +42,11 @@ router.post("/register", async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role
-      }, });
+            role: user.role,
+            companyBio: user.companyBio,
+            isApproved: user.isApproved
+        },
+      });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });
@@ -77,7 +80,9 @@ router.post("/login", async (req, res) => {
             id: user._id,
             name: user.name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            companyBio: user.companyBio,
+            isApproved: user.isApproved
       }, 
     });
     } catch (error) {

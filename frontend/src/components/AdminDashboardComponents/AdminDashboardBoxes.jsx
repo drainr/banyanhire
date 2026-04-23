@@ -22,7 +22,7 @@ const dashboardCards = [
         title: "View Approvals",
         text: "See who Signed Up and review Candidate.",
         icon: <BsEye size={34} />,
-        path: "/pending-approval",
+        path: "/admin/approvals",
     },
     {
         title: "Job Overview",
