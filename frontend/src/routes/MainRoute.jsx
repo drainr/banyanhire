@@ -29,12 +29,12 @@ const MainRoute = () => {
 
       {/* Seeker only */}
       <Route element={<PrivateRoute allowedRoles={["seeker"]} />}>
-        <Route path="/SeekerDashboard" element={<SeekerDashboard />} />
+        <Route path="/seeker" element={<SeekerDashboard />} />
       </Route>
 
       {/* Recruiter only */}
       <Route element={<PrivateRoute allowedRoles={["recruiter"]} />}>
-        <Route path="/Recruiter" element={<RecruiterDashboard />} />
+        <Route path="/recruiter" element={<RecruiterDashboard />} />
         <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
       </Route>
 

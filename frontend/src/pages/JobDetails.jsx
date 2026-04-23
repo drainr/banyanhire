@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchJobById } from "../utils/Api.js";
+import { fetchJobById } from "../utils/api.js";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import AquaButton from "../components/buttons/AquaButton.jsx";
 import PinkButton from "../components/buttons/PinkButton.jsx";
 import { IoArrowBack, IoLocationOutline, IoCalendarOutline, IoCashOutline, IoBriefcaseOutline, IoSchoolOutline, IoTimeOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
+import { useAuth } from "../hooks/useAuth.js";
 
 export default function JobDetails() {
   const { id } = useParams();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -18,8 +20,7 @@ export default function JobDetails() {
   const [resume, setResume] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
 
-  // TODO: replace with actual role from useAuth()
-  const userRole = "jobseeker";
+  const userRole = user?.role;
 
   useEffect(() => {
     const loadJob = async () => {

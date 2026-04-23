@@ -8,8 +8,9 @@ import Pagination from "../components/Pagination.jsx";
 import { useNavigate } from "react-router-dom";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import useJobs from "../Hooks/useJobs.js";
+import { useAuth } from "../hooks/useAuth.js";
 
-const JobListings = ({ profile, profileImage }) => {
+const JobListings = () => {
     const pageSize = 8;
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
@@ -22,6 +23,7 @@ const JobListings = ({ profile, profileImage }) => {
 
     const { jobs, isLoading, error } = useJobs();
     const navigate = useNavigate();
+    const { user, logout } = useAuth();
 
     // Extract unique locations and categories from job data for dropdowns
     const locations = [...new Set(jobs.map((j) => j.location).filter(Boolean))].sort();
@@ -75,18 +77,14 @@ const JobListings = ({ profile, profileImage }) => {
                 <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
                     <li className="flex flex-row items-center league-gothic-font text-[#FAF3E8]">
                         <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
-                            {profileImage ? (
-                                <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
-                            ) : (
-                                <span className="text-xl text-[#BB616D] font-bold">
-                                    {profile?.name?.charAt(0) || "+"}
-                                </span>
-                            )}
+                            <span className="text-xl text-[#BB616D] font-bold">
+                                {user?.name?.charAt(0) || "+"}
+                            </span>
                         </div>
-                        <a>{profile?.name || "Profile"}</a>
+                        <a>{user?.name}</a>
                     </li>
                     <li className="flex items-center gap-2 p-2 justify-center">
-                        <PinkButton text="Logout" onClick={() => navigate("/auth")} />
+                        <PinkButton text="Logout" onClick={() => {logout(); navigate("/auth");}} />
                     </li>
                 </ul>
             </div>
