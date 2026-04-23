@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth"; // your auth hook
+import { useAuth } from "../hooks/useAuth";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({allowedRoles}) => {
     const { user, loading } = useAuth();
 
     if (loading) return (
@@ -9,7 +9,15 @@ const PrivateRoute = () => {
             <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
     );
-    return user ? <Outlet /> : <Navigate to="/login" />;
+
+    if (!user) return <Navigate to="/auth" />;
+
+    // Logged in but wrong role
+    if (allowedRoles && !allowedRoles.includes(user.role)) {
+        return <Navigate to="/" />;
+    }
+
+    return <Outlet />;
 };
 
 export default PrivateRoute;
