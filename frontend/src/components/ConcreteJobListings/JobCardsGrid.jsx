@@ -30,6 +30,7 @@ const JobCardsGrid = ({ jobs = null, currentPage = 1, pageSize = 8 }) => {
       {jobCards.map((card) => (
         <JobCardTemplate
           key={card.id}
+          id={card.id}
           title={card.title}
           company={card.company}
           type={card.type}
