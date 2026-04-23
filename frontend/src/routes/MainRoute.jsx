@@ -11,6 +11,8 @@ import AdminDashboard from "../pages/AdminDashboard.jsx";
 import RecruiterOnboard from "../pages/RecruiterOnboard.jsx";
 import JobDetails from "../pages/JobDetails.jsx";
 import JobListing from "../pages/JobListings.jsx";
+import CompanyProfile from "../pages/CompanyProfile.jsx";
+import CreateJob from "../pages/CreateEditJob.jsx";
 
 const MainRoute = () => {
   return (
@@ -36,6 +38,8 @@ const MainRoute = () => {
       <Route element={<PrivateRoute allowedRoles={["recruiter"]} />}>
         <Route path="/recruiter" element={<RecruiterDashboard />} />
         <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
+          <Route path="/recruiter-form" element={<CompanyProfile />}/>
+          <Route path="/create-job" element={<CreateJob />}/>
       </Route>
 
       {/* Admin only */}

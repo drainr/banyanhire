@@ -1,4 +1,8 @@
 import React from "react";
+import web1 from "../../assets/work-1.webp";
+import web2 from "../../assets/work-2.jpg";
+import web3 from "../../assets/work-3.jpg";
+
 
 const HomepageExtraSection = () => {
     return (
@@ -68,7 +72,7 @@ const HomepageExtraSection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-white rounded-2xl p-7 shadow text-center">
-                        <img src/>
+                        <img src={web1} className="w-full h-56 object-cover rounded-xl mb-4"/>
                         <h4 className="text-2xl font-bold text-[#583927] mb-3">
                             Grow your career
                         </h4>
@@ -78,6 +82,8 @@ const HomepageExtraSection = () => {
                     </div>
 
                     <div className="bg-white rounded-2xl p-7 shadow text-center">
+
+                        <img src={web2} className="w-full h-56 object-cover rounded-xl mb-4"/>
                         <h4 className="text-2xl font-bold text-[#583927] mb-3">
                             Get hired
                         </h4>
@@ -87,6 +93,7 @@ const HomepageExtraSection = () => {
                     </div>
 
                     <div className="bg-white rounded-2xl p-7 shadow text-center">
+                        <img src={web3} className="w-full h-56 object-cover rounded-xl mb-4"/>
                         <h4 className="text-2xl font-bold text-[#583927] mb-3">
                             Get connected
                         </h4>

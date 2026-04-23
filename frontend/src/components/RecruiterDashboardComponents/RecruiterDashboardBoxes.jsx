@@ -16,7 +16,7 @@ const dashboardCards = [
         title: "Create Job Posting",
         text: "Create a new academic job posting for applicants.",
         icon: <IoCreateOutline size={34} />,
-        path: "/recruiter/create",
+        path: "/create-job",
     },
     {
         title: "View Applicants",
