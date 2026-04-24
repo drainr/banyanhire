@@ -27,7 +27,7 @@ const Homepage = () => {
     return (
         <div className="bg-[#583927]">
             <Navbar />
-            <main className="min-h-[800px] py-6 px-4">
+            <main className="min-h-[900px] py-6 px-4">
                 <VideoBox />
                 <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
                     <YellowButton text="Find a Job" onClick={handleFindJob} />

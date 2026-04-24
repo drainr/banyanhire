@@ -7,6 +7,12 @@ import { HiOutlineBriefcase } from "react-icons/hi";
 
 const dashboardCards = [
     {
+        title: "Manage Companies",
+        text: "See a quick overview of Companies registered and view their users and Job postings.",
+        icon: <HiOutlineBriefcase size={34} />,
+        path: "/manage-companies",
+    },
+    {
         title: "Manage Users",
         text: "View and manage all Users.",
         icon: <CiViewList size={34} />,

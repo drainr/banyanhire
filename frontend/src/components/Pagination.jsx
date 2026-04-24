@@ -1,8 +1,16 @@
-import React from 'react';
+import React from "react";
 
-const Pagination = ({ currentPage: externalCurrentPage, initialPage = 1, maxPage = null, onPageSelect }) => {
-    const [internalCurrentPage, setInternalCurrentPage] = React.useState(initialPage);
-    const currentPage = externalCurrentPage ?? internalCurrentPage;
+const Pagination = ({
+                        currentPage: externalCurrentPage,
+                        initialPage = 1,
+                        maxPage = null,
+                        onPageSelect
+                    }) => {
+    const [internalCurrentPage, setInternalCurrentPage] =
+        React.useState(initialPage);
+
+    const currentPage =
+        externalCurrentPage ?? internalCurrentPage;
 
     const updateCurrentPage = (nextPage) => {
         if (externalCurrentPage === undefined) {
@@ -20,38 +28,37 @@ const Pagination = ({ currentPage: externalCurrentPage, initialPage = 1, maxPage
         }
 
         const maxStart = Math.max(1, maxPage - 3);
-        return Math.min(Math.max(1, proposedStart), maxStart);
+        return Math.min(
+            Math.max(1, proposedStart),
+            maxStart
+        );
     };
 
     const startPage = getStartPage(currentPage);
+
     const visiblePages = [0, 1, 2, 3]
         .map((offset) => startPage + offset)
-        .filter((pageNumber) => maxPage === null || pageNumber <= maxPage);
+        .filter(
+            (pageNumber) =>
+                maxPage === null || pageNumber <= maxPage
+        );
 
     const canGoPrev = currentPage > 1;
-    const canGoNext = maxPage === null ? true : currentPage < maxPage;
-
-    const goPrev = () => {
-        if (!canGoPrev) return;
-        updateCurrentPage(currentPage - 1);
-    };
-
-    const goNext = () => {
-        if (!canGoNext) return;
-        updateCurrentPage(currentPage + 1);
-    };
-
-    const handlePageClick = (pageNumber) => {
-        updateCurrentPage(pageNumber);
-    };
+    const canGoNext =
+        maxPage === null
+            ? true
+            : currentPage < maxPage;
 
     return (
-        <div className="join ">
+        <div className="join">
             <button
                 type="button"
-                onClick={goPrev}
+                onClick={() =>
+                    canGoPrev &&
+                    updateCurrentPage(currentPage - 1)
+                }
                 disabled={!canGoPrev}
-                className="join-item btn bg-[#91D8D4] rounded-4xl text-[#583927] mr-2 hover:bg-[#583927] hover:text-[#91D8D4] focus:bg-[#583927] focus:text-[#91D8D4] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="join-item btn bg-[#91D8D4] rounded-4xl text-[#583927] mr-2 hover:bg-[#583927] hover:text-[#91D8D4] focus:outline-none disabled:opacity-50"
             >
                 &lt;
             </button>
@@ -60,11 +67,13 @@ const Pagination = ({ currentPage: externalCurrentPage, initialPage = 1, maxPage
                 <button
                     key={pageNumber}
                     type="button"
-                    onClick={() => handlePageClick(pageNumber)}
-                    className={`join-item btn rounded-4xl text-[#583927] mr-2 hover:bg-[#583927] hover:text-[#91D8D4] focus:bg-[#583927] focus:text-[#91D8D4] ${
+                    onClick={() =>
+                        updateCurrentPage(pageNumber)
+                    }
+                    className={`join-item btn rounded-4xl mr-2 focus:outline-none ${
                         pageNumber === currentPage
-                            ? 'btn-active bg-[#583927] text-[#91D8D4]'
-                            : 'bg-[#91D8D4]'
+                            ? "bg-[#583927] text-[#91D8D4]"
+                            : "bg-[#91D8D4] text-[#583927] hover:bg-[#583927] hover:text-[#91D8D4]"
                     }`}
                 >
                     {pageNumber}
@@ -73,9 +82,12 @@ const Pagination = ({ currentPage: externalCurrentPage, initialPage = 1, maxPage
 
             <button
                 type="button"
-                onClick={goNext}
+                onClick={() =>
+                    canGoNext &&
+                    updateCurrentPage(currentPage + 1)
+                }
                 disabled={!canGoNext}
-                className="join-item btn bg-[#91D8D4] rounded-4xl text-[#583927] mr-2 hover:bg-[#583927] hover:text-[#91D8D4] focus:bg-[#583927] focus:text-[#91D8D4] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="join-item btn bg-[#91D8D4] rounded-4xl text-[#583927] mr-2 hover:bg-[#583927] hover:text-[#91D8D4] focus:outline-none disabled:opacity-50"
             >
                 &gt;
             </button>

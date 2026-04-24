@@ -15,6 +15,7 @@ import CompanyProfile from "../pages/CompanyProfile.jsx";
 import CreateJob from "../pages/CreateEditJob.jsx";
 import RecruiterProfileAccordions from "../components/RecruiterDashboardComponents/RecruiterProfileAccordion.jsx";
 import SavedJobs from "../pages/SavedJobs.jsx";
+import ManageCompanies from "../pages/ManageCompanies.jsx";
 
 const MainRoute = () => {
   return (
@@ -50,6 +51,7 @@ const MainRoute = () => {
       {/* Admin only */}
       <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/manage-companies" element={<ManageCompanies />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
