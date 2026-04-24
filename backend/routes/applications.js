@@ -4,7 +4,7 @@ const Job = require("../models/job");
 const Application = require("../models/application");
 const User = require("../models/user");
 const { protect } = require("../middleware/authMiddleware");
-const { sendEmail, applicationReviewedEmail, applicationRejectedEmail } = require("../config/email");
+const { sendEmail, applicationReviewedEmail, applicationRejectedEmail, applicationSubmittedEmail } = require("../config/email");
 
 // POST - Create a new job posting
 router.post("/create-job", protect, async (req, res) => {
@@ -110,6 +110,20 @@ router.post("/apply", protect, async (req, res) => {
         });
 
         await application.save();
+
+        // Send confirmation email to applicant
+        try {
+            const applicant = await User.findById(req.user._id);
+            const emailTemplate = applicationSubmittedEmail(applicant.name, job.title, job.institution);
+            await sendEmail({
+                to: applicant.email,
+                subject: emailTemplate.subject,
+                html: emailTemplate.html,
+                text: emailTemplate.text
+            });
+        } catch (err) {
+            console.error("Failed to send application confirmation email:", err);
+        }
 
         res.status(201).json({
             message: "Application submitted successfully",

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const GreenButton = ({ text, onClick, type = "button" }) => {
+const GreenButton = ({ text, onClick, type = "submit" }) => {
     return (
         <StyledWrapper>
             <button type={type} onClick={onClick}>
