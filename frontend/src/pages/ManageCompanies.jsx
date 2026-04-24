@@ -216,7 +216,30 @@ export default function ManageCompanies() {
                                                     View
                                                 </button>
 
-                                                <button className="px-4 py-2 rounded-full border border-[#583927] text-[#583927] text-sm font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition">
+                                                {/* Remove all jobs for this company (admin bulk hide) */}
+                                                <button
+                                                    className="px-4 py-2 rounded-full border border-[#583927] text-[#583927] text-sm font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition"
+                                                    onClick={async () => {
+                                                        if (window.confirm(`Hide all jobs for ${company.name}? This will hide them from seekers and recruiters.`)) {
+                                                            try {
+                                                                // Fetch all jobs, filter by institution/companyName, and delete (hide) each
+                                                                const { fetchJobs, deleteJob } = await import("../utils/api");
+                                                                const allJobs = await fetchJobs();
+                                                                const jobsToDelete = allJobs.filter(j => String(j.institution) === company.name || (j.recruiter && j.recruiter.companyName === company.name));
+                                                                for (const job of jobsToDelete) {
+                                                                    try {
+                                                                        await deleteJob(job._id, localStorage.getItem("token"));
+                                                                    } catch (e) {
+                                                                        // ignore individual errors
+                                                                    }
+                                                                }
+                                                                alert("All jobs for this company have been hidden.");
+                                                            } catch (err) {
+                                                                alert("Error hiding jobs: " + err.message);
+                                                            }
+                                                        }
+                                                    }}
+                                                >
                                                     Remove
                                                 </button>
                                             </div>
@@ -240,8 +263,8 @@ export default function ManageCompanies() {
                         <div className="mt-8 flex justify-center">
                         <Pagination
                             currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
+                            maxPage={totalPages}
+                            onPageSelect={setCurrentPage}
                         />
                     </div>
                     </div>
