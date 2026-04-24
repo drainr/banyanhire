@@ -182,3 +182,45 @@ export const submitApplication = async (jobId, resumeURL, coverLetter, token) =>
     const data = await response.json();
     return data;
 };
+
+// ── Admin Functions ────────────────────────────────────────────────────────
+
+export const fetchRecruiters = async (token) => {
+    const response = await fetch(`${API_BASE_URL}/auth/admin/recruiters`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch recruiters");
+    const data = await response.json();
+    return data.recruiters || [];
+};
+
+export const fetchSeekers = async (token) => {
+    const response = await fetch(`${API_BASE_URL}/auth/admin/seekers`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch seekers");
+    const data = await response.json();
+    return data.seekers || [];
+};
+
+export const disableUser = async (userId, reason, token) => {
+    const response = await fetch(`${API_BASE_URL}/auth/admin/disable-user/${userId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ reason })
+    });
+    if (!response.ok) throw new Error("Failed to disable user");
+    return response.json();
+};
+
+export const fetchRecruiterJobs = async (recruiterId, token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs/recruiter/${recruiterId}`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch recruiter jobs");
+    const data = await response.json();
+    return data.jobs || [];
+};

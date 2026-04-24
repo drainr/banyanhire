@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const Job = require("../models/job");
+const User = require("../models/user");
 const { protect } = require("../middleware/authMiddleware");
+const { sendEmail, jobListingDisabledEmail } = require("../config/email");
 
 router.get("/", async (req, res) => {
 	try {
@@ -16,6 +18,17 @@ router.get("/", async (req, res) => {
 router.get("/my", protect, async (req, res) => {
     try {
         const jobs = await Job.find({ recruiterId: req.user._id, isActive: true }).sort({ createdAt: -1 });
+        res.status(200).json({ jobs });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+router.get("/recruiter/:recruiterId", protect, async (req, res) => {
+    try {
+        const jobs = await Job.find({ recruiterId: req.params.recruiterId })
+            .sort({ createdAt: -1 });
         res.status(200).json({ jobs });
     } catch (error) {
         console.error(error);
@@ -155,20 +168,42 @@ router.delete("/:id", protect, async (req, res) => {
             return res.status(404).json({ message: "Job not found" });
         }
 
+        // Get recruiter info for email
+        const recruiter = await User.findById(job.recruiterId);
+
         // Allow recruiter who owns it or admin
         if (req.user.role === "admin") {
-            // Instead of deleting, set isActive to false (soft delete)
+            // Admin disables job - set isActive to false and send email
             job.isActive = false;
             await job.save();
-            return res.status(200).json({ message: "Job hidden (soft deleted) for seekers and recruiters" });
+            
+            // Send disabled email to recruiter
+            if (recruiter) {
+                try {
+                    const emailTemplate = jobListingDisabledEmail(recruiter.name, job.title, "Job listing does not meet platform guidelines");
+                    await sendEmail({
+                        to: recruiter.email,
+                        subject: emailTemplate.subject,
+                        html: emailTemplate.html,
+                        text: emailTemplate.text
+                    });
+                } catch (err) {
+                    console.error("Failed to send job disabled email:", err);
+                }
+            }
+            
+            return res.status(200).json({ message: "Job listing disabled and recruiter notified" });
         }
+        
         if (job.recruiterId.toString() !== req.user._id.toString()) {
             return res.status(403).json({ message: "Not authorized to delete this job" });
         }
 
-        await job.deleteOne();
+        // Recruiter deletes own job - set isActive to false instead of hard delete
+        job.isActive = false;
+        await job.save();
 
-        res.status(200).json({ message: "Job deleted successfully" });
+        res.status(200).json({ message: "Job listing removed successfully" });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Server error" });

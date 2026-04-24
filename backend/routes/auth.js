@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const { protect } = require("../middleware/authMiddleware");
-const { sendEmail, recruiterApprovedEmail, recruiterRejectedEmail } = require("../config/email");
+const { sendEmail, recruiterApprovedEmail, recruiterRejectedEmail, accountDisabledEmail } = require("../config/email");
 
 const generateToken = (id) => {
     return jwt.sign({ id }, 
@@ -220,5 +220,77 @@ router.put("/reject-recruiter/:userId", protect, async (req, res) => {
     }
 });
 
+// GET - Fetch all recruiters (admin only)
+router.get("/admin/recruiters", protect, async (req, res) => {
+    try {
+        if (req.user.role !== "admin") {
+            return res.status(403).json({ message: "Only admins can view recruiters" });
+        }
+
+        const recruiters = await User.find({ role: "recruiter" }).select("-password").sort({ createdAt: -1 });
+        res.status(200).json({ recruiters });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// GET - Fetch all seekers (admin only)
+router.get("/admin/seekers", protect, async (req, res) => {
+    try {
+        if (req.user.role !== "admin") {
+            return res.status(403).json({ message: "Only admins can view seekers" });
+        }
+
+        const seekers = await User.find({ role: "seeker" }).select("-password").sort({ createdAt: -1 });
+        res.status(200).json({ seekers });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
+// PUT - Disable user account (admin only)
+router.put("/admin/disable-user/:userId", protect, async (req, res) => {
+    try {
+        if (req.user.role !== "admin") {
+            return res.status(403).json({ message: "Only admins can disable users" });
+        }
+
+        const { reason } = req.body;
+
+        const user = await User.findById(req.params.userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        user.isDisabled = true;
+        await user.save();
+
+        // Send disabled account email
+        const emailTemplate = accountDisabledEmail(user.name, reason || "Account violation");
+        await sendEmail({
+            to: user.email,
+            subject: emailTemplate.subject,
+            html: emailTemplate.html,
+            text: emailTemplate.text
+        });
+
+        res.status(200).json({
+            message: "User account disabled and email notification sent",
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                isDisabled: user.isDisabled
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 module.exports = router;
- 

@@ -16,7 +16,8 @@ import CompanyProfile from "../pages/CompanyProfile.jsx";
 import CreateJob from "../pages/CreateEditJob.jsx";
 import RecruiterProfileAccordions from "../components/RecruiterDashboardComponents/RecruiterProfileAccordion.jsx";
 import SavedJobs from "../pages/SavedJobs.jsx";
-import ManageCompanies from "../pages/ManageCompanies.jsx";
+import ManageRecruiters from "../pages/ManageRecruiters.jsx";
+import ManageSeekers from "../pages/ManageSeekers.jsx";
 import MyJobPostings from "../pages/MyJobPostings.jsx";
 import ViewUsersAndPostings from "../pages/ViewUsersAndPostings.jsx";
 import ApplicantsList from "../pages/ApplicantsList.jsx";
@@ -61,7 +62,8 @@ const MainRoute = () => {
       {/* Admin only */}
       <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/manage-companies" element={<ManageCompanies />} />
+        <Route path="/manage-recruiters" element={<ManageRecruiters />} />
+        <Route path="/manage-seekers" element={<ManageSeekers />} />
         <Route path="/view/:id" element={<ViewUsersAndPostings />} />
       </Route>
 

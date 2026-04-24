@@ -8,16 +8,16 @@ import { useAuth } from "../../hooks/useAuth.js";
 
 const dashboardCards = [
     {
-        title: "Manage Companies",
-        text: "See a quick overview of companies registered and view their users and job postings.",
+        title: "Manage Recruiters",
+        text: "See a quick overview of recruiters registered and view their users and job postings.",
         icon: <HiOutlineBriefcase size={30} />,
-        path: "/manage-companies",
+        path: "/manage-recruiters",
     },
     {
-        title: "Manage Users",
-        text: "View and manage all users.",
+        title: "Manage Seekers",
+        text: "View and manage all seekers.",
         icon: <CiViewList size={30} />,
-        path: "/admin/users",
+        path: "/manage-seekers",
     },
     {
         title: "Manage Job Posting",
