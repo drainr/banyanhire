@@ -31,7 +31,7 @@ const Homepage = () => {
                 <VideoBox />
                 <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
                     <YellowButton text="Find a Job" onClick={handleFindJob} />
-                    <GreenButton text="Hire Now" onClick={handleHireNow} />
+                    <YellowButton text="Hire Now" onClick={handleHireNow} />
                 </div>
                 <div className="m-16">
                     <HomepageExtraSection />
