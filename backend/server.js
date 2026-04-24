@@ -6,7 +6,6 @@ const authRoutes = require("./routes/auth");
 const jobRoutes = require("./routes/jobs");
 const applicationRoutes = require("./routes/applications");
 const protectedRoutes = require("./routes/protected");
-const emailRoutes = require("./routes/email");
 const bookmarkRoutes = require("./routes/bookmarks");
 
 const app = express();
@@ -26,7 +25,6 @@ connectDB().then(() => {
   app.use("/api/jobs", jobRoutes);
   app.use("/api/applications", applicationRoutes);
   app.use("/api/protected", protectedRoutes);
-  app.use("/api/email", emailRoutes);
   app.use("/api/bookmarks", bookmarkRoutes);
 
   app.listen(port, () => console.log(`Listening on port: ${port}`));
