@@ -1,31 +1,43 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../components/Sidebar.jsx";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import useJobs from "../Hooks/useJobs.js";
 import JobCardTemplate from "../components/ConcreteJobListings/JobCardTemplate.jsx";
+import { fetchJobs } from "../utils/api";
 
 const ViewUsersAndPostings = () => {
     const { id } = useParams();
-    const { jobs = [], isLoading, error } = useJobs();
-
-    // Users in state for deletion logic
+    const decodedInstitution = decodeURIComponent(id);
     const [users, setUsers] = useState([
         { id: 1, name: "Maya Johnson", email: "maya@ncf.edu" },
         { id: 2, name: "Jacob Smith", email: "jacob@ncf.edu" },
         { id: 3, name: "Lena Brown", email: "lena@ncf.edu" },
     ]);
-
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 6;
+    const [jobs, setJobs] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    const deleteUser = (userId) => {
-        setUsers(users.filter(user => user.id !== userId));
-    };
+    useEffect(() => {
+        setIsLoading(true);
+        fetchJobs()
+            .then((data) => setJobs(data))
+            .catch((err) => setError(err.message))
+            .finally(() => setIsLoading(false));
+    }, []);
 
+    // Enhanced filter: show jobs for this company by institution name OR recruiter companyName
     const filteredJobs = useMemo(() => {
-        return jobs.filter((job) => job.companyId === id || job.company_id === id);
-    }, [jobs, id]);
+        return jobs.filter((job) => {
+            // Match by institution field
+            if (String(job.institution) === decodedInstitution) return true;
+            // Match by recruiter companyName (if recruiter is populated)
+            if (job.recruiter && job.recruiter.companyName === decodedInstitution) return true;
+            return false;
+        });
+    }, [jobs, decodedInstitution]);
 
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
@@ -77,16 +89,11 @@ const ViewUsersAndPostings = () => {
                         {error && <p className="text-red-500">{error}</p>}
 
                         {!isLoading && !error && (
-                            <div className="w-full">
-                                {/* If the cards aren't side-by-side, check JobCardsGrid.jsx
-               and ensure it uses: className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            */}
-                                <JobCardTemplate
-                                    jobs={filteredJobs}
-                                    currentPage={currentPage}
-                                    pageSize={pageSize}
-                                />
-                            </div>
+                            <JobCardsGrid
+                                jobs={filteredJobs}
+                                currentPage={currentPage}
+                                pageSize={pageSize}
+                            />
                         )}
                     </section>
                 </div>

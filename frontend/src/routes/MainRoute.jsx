@@ -60,7 +60,7 @@ const MainRoute = () => {
       <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/manage-companies" element={<ManageCompanies />} />
-          <Route path="/view" element={<ViewUsersAndPostings />} />
+        <Route path="/view/:id" element={<ViewUsersAndPostings />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

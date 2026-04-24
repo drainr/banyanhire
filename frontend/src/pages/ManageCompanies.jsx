@@ -35,7 +35,7 @@ const companyData = [
     { id: 26, name: "Princeton University", email: "jobs@princeton.edu", createdAt: "2026-04-07", status: "Approved" },
     { id: 27, name: "Columbia University", email: "hr@columbia.edu", createdAt: "2026-04-01", status: "Approved" },
     { id: 28, name: "Duke University", email: "careers@duke.edu", createdAt: "2026-04-12", status: "Pending" },
-    { id: 29, name: "NYU", email: "jobs@nyu.edu", createdAt: "2026-04-06", status: "Approved" },
+    { id: 29, name: "New York University", email: "jobs@nyu.edu", createdAt: "2026-04-06", status: "Approved" },
     { id: 30, name: "University of Texas", email: "recruit@utexas.edu", createdAt: "2026-04-09", status: "Pending" },
 
     { id: 31, name: "Spotify", email: "jobs@spotify.com", createdAt: "2026-04-14", status: "Approved" },
@@ -211,7 +211,7 @@ export default function ManageCompanies() {
                                         <td className="px-6 py-5">
                                             <div className="flex gap-3">
                                                 <button className="px-4 py-2 rounded-full bg-[#583927] text-white text-sm font-semibold hover:opacity-90 transition" onClick={() =>
-                                                    navigate(`/view`)
+                                                    navigate(`/view/${encodeURIComponent(company.name)}`)
                                                 }>
                                                     View
                                                 </button>
