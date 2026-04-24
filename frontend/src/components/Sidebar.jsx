@@ -42,6 +42,7 @@ const Sidebar = () => {
     const adminLinks = [
         { path: "/", icon: <IoHomeOutline />, label: "Home" },
         { path: "/admin", icon: <CiViewList />, label: "Dashboard" },
+        { path: "/manage-companies", icon: <IoCreateOutline />, label: "Manage Companies" },
         { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" },
         { path: "/admin/users", icon: <IoCreateOutline />, label: "Manage Users" },
         { path: "/admin/approvals", icon: <BsEye />, label: "View Approvals" },
@@ -78,17 +79,22 @@ const Sidebar = () => {
 
             {/* User info + logout */}
             <ul className="fixed left-14 bottom-3 flex flex-col text-2xl items-center">
-                <li
-                    className="flex flex-row items-center league-gothic-font text-[#FAF3E8] cursor-pointer"
-                    onClick={() => navigate(user?.role === "recruiter" ? "/recruiterprofile" : "/profile")}
-                >
-                    <div className="w-16 h-16 rounded-full t-2 scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
-                        <span className="text-xl text-[#BB616D] font-bold">
-                            {user?.name?.charAt(0) || "+"}
-                        </span>
-                    </div>
-                    <span>{user?.name || "Profile"}</span>
-                </li>
+                {user?.role !== "admin" && (
+                    <li
+                        className="flex flex-row items-center league-gothic-font text-[#FAF3E8] cursor-pointer"
+                        onClick={() =>
+                            navigate(user?.role === "recruiter" ? "/recruiterprofile" : "/profile")
+                        }
+                    >
+                        <div className="w-16 h-16 rounded-full scale-65 overflow-hidden border-4 border-[#91D8D4] bg-white flex items-center justify-center">
+                <span className="text-xl text-[#BB616D] font-bold">
+                    {user?.name?.charAt(0) || "+"}
+                </span>
+                        </div>
+                        <span>{user?.name || "Profile"}</span>
+                    </li>
+                )}
+
                 <li className="flex items-center gap-2 p-2 justify-center">
                     <PinkButton text="Logout" onClick={handleLogout} />
                 </li>

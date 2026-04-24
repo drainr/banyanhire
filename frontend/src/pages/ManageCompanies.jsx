@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import Sidebar from "../components/Sidebar.jsx";
 import Pagination from "../components/Pagination";
+import { useNavigate } from "react-router-dom";
 
 const companyData = [
     { id: 1, name: "New College of Florida", email: "hr@ncf.edu", createdAt: "2026-04-20", status: "Approved" },
@@ -61,6 +62,7 @@ const companyData = [
 ];
 
 export default function ManageCompanies() {
+    const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState("");
     const [sortType, setSortType] = useState("newest");
 
@@ -208,7 +210,9 @@ export default function ManageCompanies() {
 
                                         <td className="px-6 py-5">
                                             <div className="flex gap-3">
-                                                <button className="px-4 py-2 rounded-full bg-[#583927] text-white text-sm font-semibold hover:opacity-90 transition">
+                                                <button className="px-4 py-2 rounded-full bg-[#583927] text-white text-sm font-semibold hover:opacity-90 transition" onClick={() =>
+                                                    navigate(`/view`)
+                                                }>
                                                     View
                                                 </button>
 
@@ -233,15 +237,13 @@ export default function ManageCompanies() {
                                 </tbody>
                             </table>
                         </div>
-                        {filteredCompanies.length > 0 && (
-                            <div className="mt-8 flex justify-center">
-                                <Pagination
-                                    currentPage={currentPage}
-                                    maxPage={totalPages}
-                                    onPageSelect={setCurrentPage}
-                                />
-                            </div>
-                        )}
+                        <div className="mt-8 flex justify-center">
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={setCurrentPage}
+                        />
+                    </div>
                     </div>
                 </div>
             </main>

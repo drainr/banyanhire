@@ -39,6 +39,15 @@ export const fetchJobById = async (id) => {
   return data.job || data;
 };
 
+export const fetchMyJobs = async (token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs/my`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch your jobs");
+    const data = await response.json();
+    return data.jobs || [];
+};
+
 const request = async (path, body) => {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method: "POST",
@@ -58,6 +67,50 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (credentials) => {
   return request("/auth/login", credentials);
+};
+
+export const createJob = async (jobData, token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(jobData)
+    });
+    if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to create job");
+    }
+    return response.json();
+};
+
+export const updateJob = async (jobId, jobData, token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(jobData)
+    });
+    if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to update job");
+    }
+    return response.json();
+};
+
+export const deleteJob = async (jobId, token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Failed to delete job");
+    }
+    return response.json();
 };
 
 export const fetchSavedJobs = async (token) => {
@@ -84,15 +137,6 @@ export const unsaveJob = async (jobId, token) => {
         headers: { "Authorization": `Bearer ${token}` }
     });
     if (!response.ok) throw new Error("Failed to remove job");
-    return response.json();
-};
-
-export const deleteJob = async (jobId, token) => {
-    const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, {
-        method: "DELETE",
-        headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (!response.ok) throw new Error("Failed to delete job");
     return response.json();
 };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchJobById, submitApplication } from "../utils/api.js";
+import { fetchJobById, submitApplication, deleteJob } from "../utils/api.js";
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import AquaButton from "../components/buttons/AquaButton.jsx";
@@ -93,9 +93,14 @@ export default function JobDetails() {
     }
   };
 
-  const handleDelete = () => {
-    alert("Job deleted");
-    navigate("/jobs");
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this job posting?")) return;
+    try {
+        await deleteJob(id, token);
+        navigate("/jobs");
+    } catch (err) {
+        alert(err.message || "Failed to delete job");
+    }
   };
 
   const formatDate = (dateStr) => {

@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute.jsx";
+import ApprovedRecruiterRoute from "./ApprovedRecruiterRoute.jsx";
 import AuthPage from "../pages/AuthPage.jsx";
 import Homepage from "../pages/Homepage.jsx";
 import NotFound from "../pages/NotFound.jsx";
@@ -16,6 +17,8 @@ import CreateJob from "../pages/CreateEditJob.jsx";
 import RecruiterProfileAccordions from "../components/RecruiterDashboardComponents/RecruiterProfileAccordion.jsx";
 import SavedJobs from "../pages/SavedJobs.jsx";
 import ManageCompanies from "../pages/ManageCompanies.jsx";
+import MyJobPostings from "../pages/MyJobPostings.jsx";
+import ViewUsersAndPostings from "../pages/ViewUsersAndPostings.jsx";
 
 const MainRoute = () => {
   return (
@@ -23,7 +26,6 @@ const MainRoute = () => {
       {/* Public */}
       <Route path="/" element={<Homepage />} />
       <Route path="/auth" element={<AuthPage />} />
-      <Route path="/pending-approval" element={<PendingApproval />} />
 
       {/* Any logged-in user */}
       <Route element={<PrivateRoute />}>
@@ -38,20 +40,27 @@ const MainRoute = () => {
         <Route path="/jobs/saved" element={<SavedJobs />} />
       </Route>
 
-      {/* Recruiter only */}
+      {/* Recruiter — unapproved (onboarding + pending) */}
       <Route element={<PrivateRoute allowedRoles={["recruiter"]} />}>
+        <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
+        <Route path="/pending-approval" element={<PendingApproval />} />
+      </Route>
+
+      {/* Recruiter — approved only */}
+      <Route element={<ApprovedRecruiterRoute />}>
         <Route path="/recruiter" element={<RecruiterDashboard />} />
         <Route path="/recruiterprofile" element={<RecruiterProfileAccordions />} />
-        <Route path="/recruiter-onboard" element={<RecruiterOnboard />} />
-        <Route path="/recruiter-form" element={<CompanyProfile />}/>
-        <Route path="/create-job" element={<CreateJob />}/>
-        <Route path="/edit-job/:id" element={<CreateJob />}/>
+        <Route path="/recruiter-form" element={<CompanyProfile />} />
+        <Route path="/jobs/my" element={<MyJobPostings />} />
+        <Route path="/create-job" element={<CreateJob />} />
+        <Route path="/edit-job/:id" element={<CreateJob />} />
       </Route>
 
       {/* Admin only */}
       <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
         <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/manage-companies" element={<ManageCompanies />} />
+        <Route path="/manage-companies" element={<ManageCompanies />} />
+          <Route path="/view" element={<ViewUsersAndPostings />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

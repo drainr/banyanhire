@@ -3,7 +3,7 @@ import Sidebar from "../Sidebar.jsx";
 import UserProfile from "../../pages/UserProfile.jsx";
 import CompanyProfile from "../../pages/CompanyProfile.jsx";
 
-export default function RecruiterProfileAccordions() {
+export default function RecruiterProfileAccordion() {
     const [openSection, setOpenSection] = useState(null);
 
     const toggleSection = (section) => {
@@ -36,18 +36,13 @@ export default function RecruiterProfileAccordions() {
                                 onClick={() => toggleSection("user")}
                                 className="w-full px-10 py-6 flex items-center justify-between bg-[#91D8D4] text-[#583927]"
                             >
-                                <span className="text-2xl font-bold">
-                                    User Profile
-                                </span>
-
-                                <span className="text-3xl font-bold">
-                                    {openSection === "user" ? "−" : "+"}
-                                </span>
+                                <span className="text-2xl font-bold">User Profile</span>
+                                <span className="text-3xl font-bold">{openSection === "user" ? "−" : "+"}</span>
                             </button>
 
                             {openSection === "user" && (
                                 <div className="p-8 bg-white">
-                                    <UserProfile />
+                                    <UserProfile embedded />
                                 </div>
                             )}
                         </div>
@@ -57,13 +52,8 @@ export default function RecruiterProfileAccordions() {
                                 onClick={() => toggleSection("company")}
                                 className="w-full px-10 py-6 flex items-center justify-between bg-[#91D8D4] text-[#583927]"
                             >
-                                <span className="text-2xl font-bold">
-                                    Company Profile
-                                </span>
-
-                                <span className="text-3xl font-bold">
-                                    {openSection === "company" ? "−" : "+"}
-                                </span>
+                                <span className="text-2xl font-bold">Company Profile</span>
+                                <span className="text-3xl font-bold">{openSection === "company" ? "−" : "+"}</span>
                             </button>
 
                             {openSection === "company" && (
