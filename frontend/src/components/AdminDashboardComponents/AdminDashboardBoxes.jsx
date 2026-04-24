@@ -34,7 +34,7 @@ const dashboardCards = [
         title: "Job Overview",
         text: "See a quick overview of active jobs, deadlines, and status.",
         icon: <HiOutlineBriefcase size={34} />,
-        path: "/recruiter/overview",
+        path: "/jobs",
     },
 ];
 
