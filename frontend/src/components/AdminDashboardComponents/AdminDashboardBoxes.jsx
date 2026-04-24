@@ -22,19 +22,13 @@ const dashboardCards = [
         title: "Manage Job Posting",
         text: "Review Job Postings by Companies.",
         icon: <IoCreateOutline size={34} />,
-        path: "/admin/review",
+        path: "/jobs",
     },
     {
         title: "View Approvals",
         text: "See who Signed Up and review Candidate.",
         icon: <BsEye size={34} />,
         path: "/admin/approvals",
-    },
-    {
-        title: "Job Overview",
-        text: "See a quick overview of active jobs, deadlines, and status.",
-        icon: <HiOutlineBriefcase size={34} />,
-        path: "/jobs",
     },
 ];
 
