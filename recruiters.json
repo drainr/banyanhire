@@ -1,0 +1,72 @@
+[
+  {
+    "name": "New College of Florida Recruiter",
+    "email": "recruiter@ncf.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "New College of Florida is a prestigious liberal arts honors college."
+  },
+  {
+    "name": "University of Florida Recruiter",
+    "email": "recruiter@ufl.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "University of Florida is a major public research university."
+  },
+  {
+    "name": "UPenn School of Nursing Recruiter",
+    "email": "recruiter@nursing.upenn.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "University of Pennsylvania School of Nursing is a world-renowned nursing institution."
+  },
+  {
+    "name": "University of Minnesota Recruiter",
+    "email": "recruiter@umn.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "University of Minnesota is a leading public research university in the Twin Cities."
+  },
+  {
+    "name": "New York University Recruiter",
+    "email": "recruiter@nyu.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "New York University is a private research university based in New York City."
+  },
+  {
+    "name": "Harvard University Recruiter",
+    "email": "recruiter@harvard.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "Harvard University is an Ivy League research university in Cambridge, Massachusetts."
+  },
+  {
+    "name": "Stanford University Recruiter",
+    "email": "recruiter@stanford.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "Stanford University is a private research university in Stanford, California."
+  },
+  {
+    "name": "Johns Hopkins University Recruiter",
+    "email": "recruiter@jhu.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "Johns Hopkins University is a private research university known for medicine and public health."
+  },
+  {
+    "name": "University of Michigan Recruiter",
+    "email": "recruiter@umich.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "University of Michigan is a top-ranked public research university in Ann Arbor."
+  },
+  {
+    "name": "Georgetown University Recruiter",
+    "email": "recruiter@georgetown.edu",
+    "password": "password123",
+    "role": "recruiter",
+    "companyBio": "Georgetown University is a private Jesuit research university in Washington, D.C."
+  }
+]
