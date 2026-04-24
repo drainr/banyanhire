@@ -6,18 +6,20 @@ import { useAuth } from "../hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { fetchSavedJobs } from "../utils/api.js";
 
-/* Scroll Row */
+
 const ScrollableRow = ({ title, icon, children }) => (
     <div className="mb-12">
-        <div className="flex items-center gap-2 mb-5">
-            {icon}
+        <div className="flex items-start gap-3 mb-5">
 
-            <h2 className="league-gothic-font text-[#583927] text-2xl">
+            <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                {icon}
+            </div>
+
+            <h2 className="league-gothic-font text-[#583927] text-2xl leading-none translate-y-1.5">
                 {title}
             </h2>
         </div>
 
-        {/* Added padding so hover scale doesn't get clipped */}
         <div className="flex gap-5 overflow-x-auto px-3 py-3 pb-5 scrollbar-thin">
             {children}
         </div>
@@ -127,11 +129,10 @@ const SeekerDashboard = () => {
             <Sidebar />
 
             <main className="ml-[250px] p-8">
-                <h1 className="league-gothic-font text-[#583927] text-4xl mb-12">
+                <h1 className="league-gothic-font text-[#583927] text-4xl mb-9">
                     WELCOME, {user?.name?.toUpperCase() || "SEEKER"}
                 </h1>
 
-                {/* Saved Jobs */}
                 <ScrollableRow
                     title="SAVED JOBS"
                     icon={
@@ -149,9 +150,7 @@ const SeekerDashboard = () => {
                         savedJobs.map((job) => (
                             <div
                                 key={job._id}
-                                onClick={() =>
-                                    navigate(`/jobs/${job._id}`)
-                                }
+                                onClick={() => navigate(`/jobs/${job._id}`)}
                                 className={cardClass}
                             >
                                 <div>
@@ -173,10 +172,7 @@ const SeekerDashboard = () => {
                                 </div>
 
                                 <div className="text-xs text-[#B5CD88] font-semibold">
-                                    {formatSalary(
-                                        job.salaryMin,
-                                        job.salaryMax
-                                    )}
+                                    {formatSalary(job.salaryMin, job.salaryMax)}
                                 </div>
                             </div>
                         ))
@@ -187,7 +183,7 @@ const SeekerDashboard = () => {
                     )}
                 </ScrollableRow>
 
-                {/* Applications */}
+
                 <ScrollableRow
                     title="MY APPLICATIONS"
                     icon={
@@ -200,9 +196,7 @@ const SeekerDashboard = () => {
                     {appliedJobs.map((job) => (
                         <div
                             key={job._id}
-                            onClick={() =>
-                                navigate(`/jobs/${job._id}`)
-                            }
+                            onClick={() => navigate(`/jobs/${job._id}`)}
                             className={cardClass}
                         >
                             <div>
@@ -226,17 +220,14 @@ const SeekerDashboard = () => {
                             <div className="flex justify-between items-center gap-2">
                                 <span className="text-xs text-[#583927]">
                                     Applied:{" "}
-                                    {new Date(
-                                        job.dateApplied
-                                    ).toLocaleDateString()}
+                                    {new Date(job.dateApplied).toLocaleDateString()}
                                 </span>
 
                                 <span
                                     className={`text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap ${
                                         job.status === "Viewed"
                                             ? "bg-[#F6E58D] text-[#583927]"
-                                            : job.status ===
-                                            "Under Review"
+                                            : job.status === "Under Review"
                                                 ? "bg-[#91D8D4] text-white"
                                                 : "bg-[#B5CD88] text-white"
                                     }`}
