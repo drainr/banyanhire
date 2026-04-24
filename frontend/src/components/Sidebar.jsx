@@ -44,8 +44,7 @@ const Sidebar = () => {
         { path: "/admin", icon: <CiViewList />, label: "Dashboard" },
         { path: "/manage-recruiters", icon: <IoCreateOutline />, label: "Manage Recruiters" },
         { path: "/manage-seekers", icon: <IoCreateOutline />, label: "Manage Seekers" },
-        { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" },
-        { path: "/admin/approvals", icon: <BsEye />, label: "View Approvals" },
+        { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" }
     ];
 
     const getLinks = () => {

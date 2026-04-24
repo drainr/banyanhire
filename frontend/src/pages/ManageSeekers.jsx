@@ -13,7 +13,7 @@ export default function ManageSeekers() {
     const [searchTerm, setSearchTerm] = useState("");
     const [sortType, setSortType] = useState("newest");
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     const seekersPerPage = 10;
 
     useEffect(() => {
@@ -45,7 +45,7 @@ export default function ManageSeekers() {
         try {
             const reason = window.prompt("Enter reason for disabling account (optional):");
             await disableUser(seekerId, reason || "Account disabled by administrator", token);
-            
+
             // Remove from list
             setSeekers(seekers.filter(s => s._id !== seekerId));
             alert(`${seekerName}'s account has been disabled and they have been notified via email.`);
@@ -141,11 +141,10 @@ export default function ManageSeekers() {
                             <button
                                 key={type}
                                 onClick={() => setSortType(type)}
-                                className={`px-4 py-2 rounded-full font-semibold transition ${
-                                    sortType === type
+                                className={`px-4 py-2 rounded-full font-semibold transition ${sortType === type
                                         ? "bg-[#91D8D4] text-[#583927]"
                                         : "bg-gray-200 text-[#583927] hover:bg-gray-300"
-                                }`}
+                                    }`}
                             >
                                 {type === "newest" && "Newest"}
                                 {type === "oldest" && "Oldest"}
@@ -196,8 +195,8 @@ export default function ManageSeekers() {
                     <div className="mt-8">
                         <Pagination
                             currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
+                            maxPage={totalPages}
+                            onPageSelect={setCurrentPage}
                         />
                     </div>
                 </div>

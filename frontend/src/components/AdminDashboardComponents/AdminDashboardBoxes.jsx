@@ -24,13 +24,7 @@ const dashboardCards = [
         text: "Review job postings by companies.",
         icon: <IoCreateOutline size={30} />,
         path: "/jobs",
-    },
-    {
-        title: "View Approvals",
-        text: "See who signed up and review candidates.",
-        icon: <BsEye size={30} />,
-        path: "/admin/approvals",
-    },
+    }
 ];
 
 const AdminDashboardBoxes = () => {

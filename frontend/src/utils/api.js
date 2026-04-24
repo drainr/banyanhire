@@ -224,3 +224,21 @@ export const fetchRecruiterJobs = async (recruiterId, token) => {
     const data = await response.json();
     return data.jobs || [];
 };
+
+export const approveRecruiter = async (userId, token) => {
+    const response = await fetch(`${API_BASE_URL}/auth/approve-recruiter/${userId}`, {
+        method: "PUT",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to approve recruiter");
+    return response.json();
+};
+
+export const rejectRecruiter = async (userId, token) => {
+    const response = await fetch(`${API_BASE_URL}/auth/reject-recruiter/${userId}`, {
+        method: "PUT",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to reject recruiter");
+    return response.json();
+};

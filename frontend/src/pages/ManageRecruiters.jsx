@@ -3,7 +3,7 @@ import { FiSearch } from "react-icons/fi";
 import Sidebar from "../components/Sidebar.jsx";
 import Pagination from "../components/Pagination";
 import { useAuth } from "../hooks/useAuth.js";
-import { fetchRecruiters, disableUser, fetchRecruiterJobs } from "../utils/api.js";
+import { fetchRecruiters, disableUser, fetchRecruiterJobs, approveRecruiter, rejectRecruiter } from "../utils/api.js";
 
 export default function ManageRecruiters() {
     const { token } = useAuth();
@@ -15,7 +15,7 @@ export default function ManageRecruiters() {
     const [currentPage, setCurrentPage] = useState(1);
     const [expandedId, setExpandedId] = useState(null);
     const [recruiterJobs, setRecruiterJobs] = useState({});
-    
+
     const recruitersPerPage = 10;
 
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function ManageRecruiters() {
 
     const loadRecruiterJobs = async (recruiterId) => {
         if (recruiterJobs[recruiterId]) return; // Already loaded
-        
+
         try {
             const jobs = await fetchRecruiterJobs(recruiterId, token);
             setRecruiterJobs(prev => ({
@@ -61,12 +61,34 @@ export default function ManageRecruiters() {
         try {
             const reason = window.prompt("Enter reason for disabling account (optional):");
             await disableUser(recruiterId, reason || "Account disabled by administrator", token);
-            
+
             // Remove from list
             setRecruiters(recruiters.filter(r => r._id !== recruiterId));
             alert(`${recruiterName}'s account has been disabled and they have been notified via email.`);
         } catch (err) {
             alert("Failed to disable account: " + err.message);
+        }
+    };
+
+    const handleApproveRecruiter = async (recruiterId, recruiterName) => {
+        if (!window.confirm(`Approve ${recruiterName}'s recruiter account?`)) return;
+        try {
+            await approveRecruiter(recruiterId, token);
+            setRecruiters(prev =>
+                prev.map(r => r._id === recruiterId ? { ...r, isApproved: true } : r)
+            );
+        } catch (err) {
+            alert("Failed to approve recruiter: " + err.message);
+        }
+    };
+
+    const handleRejectRecruiter = async (recruiterId, recruiterName) => {
+        if (!window.confirm(`Reject and disable ${recruiterName}'s account? They will be notified by email.`)) return;
+        try {
+            await rejectRecruiter(recruiterId, token);
+            setRecruiters(prev => prev.filter(r => r._id !== recruiterId));
+        } catch (err) {
+            alert("Failed to reject recruiter: " + err.message);
         }
     };
 
@@ -157,11 +179,10 @@ export default function ManageRecruiters() {
                             <button
                                 key={type}
                                 onClick={() => setSortType(type)}
-                                className={`px-4 py-2 rounded-full font-semibold transition ${
-                                    sortType === type
-                                        ? "bg-[#91D8D4] text-[#583927]"
-                                        : "bg-gray-200 text-[#583927] hover:bg-gray-300"
-                                }`}
+                                className={`px-4 py-2 rounded-full font-semibold transition ${sortType === type
+                                    ? "bg-[#91D8D4] text-[#583927]"
+                                    : "bg-gray-200 text-[#583927] hover:bg-gray-300"
+                                    }`}
                             >
                                 {type === "newest" && "Newest"}
                                 {type === "oldest" && "Oldest"}
@@ -197,29 +218,46 @@ export default function ManageRecruiters() {
                                                 {recruiter.companyName || "N/A"}
                                             </td>
                                             <td className="py-4 px-4">
-                                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                                                    recruiter.isApproved
-                                                        ? "bg-green-100 text-green-800"
-                                                        : "bg-yellow-100 text-yellow-800"
-                                                }`}>
-                                                    {recruiter.isApproved ? "Approved" : "Pending"}
-                                                </span>
+                                                {recruiter.isApproved ? (
+                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                                                        Approved
+                                                    </span>
+                                                ) : (
+                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800">
+                                                        Pending
+                                                    </span>
+                                                )}
                                             </td>
                                             <td className="py-4 px-4 text-[#583927] text-sm">
                                                 {new Date(recruiter.createdAt).toLocaleDateString()}
                                             </td>
-                                            <td className="py-4 px-4 flex gap-2">
+                                            <td className="py-4 px-4 flex gap-2 flex-wrap">
                                                 <button
                                                     onClick={() => {
-                                                        setExpandedId(expandedId === recruiter._id ? null : recruiter._id);
-                                                        if (expandedId !== recruiter._id) {
-                                                            loadRecruiterJobs(recruiter._id);
-                                                        }
+                                                        const isExpanding = expandedId !== recruiter._id;
+                                                        setExpandedId(isExpanding ? recruiter._id : null);
+                                                        if (isExpanding) loadRecruiterJobs(recruiter._id);
                                                     }}
                                                     className="px-3 py-1 rounded bg-[#91D8D4] hover:bg-[#7ec5cb] text-[#583927] font-semibold text-sm transition"
                                                 >
                                                     Jobs
                                                 </button>
+                                                {!recruiter.isApproved && (
+                                                    <button
+                                                        onClick={() => handleApproveRecruiter(recruiter._id, recruiter.name)}
+                                                        className="px-3 py-1 rounded bg-green-500 hover:bg-green-600 text-white font-semibold text-sm transition"
+                                                    >
+                                                        Approve
+                                                    </button>
+                                                )}
+                                                {!recruiter.isApproved && (
+                                                    <button
+                                                        onClick={() => handleRejectRecruiter(recruiter._id, recruiter.name)}
+                                                        className="px-3 py-1 rounded bg-orange-400 hover:bg-orange-500 text-white font-semibold text-sm transition"
+                                                    >
+                                                        Reject
+                                                    </button>
+                                                )}
                                                 <button
                                                     onClick={() => handleDisableRecruiter(recruiter._id, recruiter.name, recruiter.email)}
                                                     className="px-3 py-1 rounded bg-[#BB616D] hover:bg-[#a0505c] text-white font-semibold text-sm transition"
@@ -247,7 +285,7 @@ export default function ManageRecruiters() {
                                                                 ))}
                                                             </ul>
                                                         ) : (
-                                                            <p className="text-[#583927]/60 text-sm">No active job postings</p>
+                                                            <p className="text-[#583927]/60 text-sm">No job postings found</p>
                                                         )}
                                                     </div>
                                                 </td>
@@ -262,8 +300,8 @@ export default function ManageRecruiters() {
                     <div className="mt-8">
                         <Pagination
                             currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
+                            maxPage={totalPages}
+                            onPageSelect={setCurrentPage}
                         />
                     </div>
                 </div>
