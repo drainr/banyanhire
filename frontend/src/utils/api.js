@@ -59,3 +59,39 @@ export const registerUser = async (userData) => {
 export const loginUser = async (credentials) => {
   return request("/auth/login", credentials);
 };
+
+export const fetchSavedJobs = async (token) => {
+    const response = await fetch(`${API_BASE_URL}/bookmarks`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch saved jobs");
+    const data = await response.json();
+    return data.savedJobs || [];
+};
+
+export const saveJob = async (jobId, token) => {
+    const response = await fetch(`${API_BASE_URL}/bookmarks/${jobId}`, {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to save job");
+    return response.json();
+};
+
+export const unsaveJob = async (jobId, token) => {
+    const response = await fetch(`${API_BASE_URL}/bookmarks/${jobId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to remove job");
+    return response.json();
+};
+
+export const deleteJob = async (jobId, token) => {
+    const response = await fetch(`${API_BASE_URL}/jobs/${jobId}`, {
+        method: "DELETE",
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to delete job");
+    return response.json();
+};

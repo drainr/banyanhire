@@ -125,10 +125,61 @@ function applicationRejectedEmail(applicantName, jobTitle) {
   };
 }
 
+function applicationSubmittedEmail(applicantName, jobTitle, companyName) {
+  return {
+    subject: `Your application for ${jobTitle} at ${companyName} has been received`,
+    text: `Hi ${applicantName},\n\nThank you for your application to ${jobTitle} at ${companyName}. We have received your application and will review it shortly.\n\nThe BanyanHire Team`,
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
+        <h2 style="border-bottom:2px solid #1a1a1a;padding-bottom:8px">BanyanHire</h2>
+        <p>Hi <strong>${applicantName}</strong>,</p>
+        <p>Thank you for your application to <strong>${jobTitle}</strong> at <strong>${companyName}</strong>. We have received your application and will review it shortly.</p>
+        <p style="margin-top:40px;font-size:12px;color:#666">The BanyanHire Team</p>
+      </div>
+    `,
+  };
+}
+
+function accountDisabledEmail(accountName, reason) {
+  return {
+    subject: "Your BanyanHire account has been disabled",
+    text: `Hi ${accountName},\n\nYour BanyanHire account has been disabled for the following reason: ${reason}\n\nIf you have any questions or believe this is an error, please contact our support team.\n\nThe BanyanHire Team`,
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
+        <h2 style="border-bottom:2px solid #1a1a1a;padding-bottom:8px">BanyanHire</h2>
+        <p>Hi <strong>${accountName}</strong>,</p>
+        <p>Your BanyanHire account has been disabled for the following reason: <strong>${reason}</strong>.</p>
+        <p>If you have any questions or believe this is an error, please contact our support team.</p>
+        <p style="margin-top:40px;font-size:12px;color:#666">The BanyanHire Team</p>
+      </div>
+    `,
+  };
+}
+
+function jobListingDisabledEmail(recruiterName, jobTitle, reason) {
+  return {
+    subject: `Your job listing "${jobTitle}" has been disabled`,
+    text: `Hi ${recruiterName},\n\nYour job listing "${jobTitle}" has been disabled for the following reason: ${reason}\n\nIf you have any questions or believe this is an error, please contact our support team.\n\nThe BanyanHire Team`,
+    html: `
+      <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#1a1a1a">
+        <h2 style="border-bottom:2px solid #1a1a1a;padding-bottom:8px">BanyanHire</h2>
+        <p>Hi <strong>${recruiterName}</strong>,</p>
+        <p>Your job listing "<strong>${jobTitle}</strong>" has been disabled for the following reason: <strong>${reason}</strong>.</p>
+        <p>If you have any questions or believe this is an error, please contact our support team.</p>
+        <p style="margin-top:40px;font-size:12px;color:#666">The BanyanHire Team</p>
+      </div>
+    `,
+  };
+}
+
+
 module.exports = {
   sendEmail,
   recruiterApprovedEmail,
   recruiterRejectedEmail,
   applicationReviewedEmail,
   applicationRejectedEmail,
+  applicationSubmittedEmail,
+  accountDisabledEmail,
+  jobListingDisabledEmail,
 };

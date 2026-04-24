@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   role:         { type: String, enum: ["admin", "recruiter", "seeker"], required: true },
   profilePic:   { type: String },
   isDisabled:   { type: Boolean, default: false },
+  savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
 
   // recruiter-specific
   companyName:  { type: String },

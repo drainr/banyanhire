@@ -1,57 +1,77 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import YellowButton from '../buttons/YellowButton.jsx';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
+import { IoCloseCircleOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
 const JobCardTemplate = ({
-  id,
-  title,
-  company,
-  type,
-  location,
-  imageUrl,
-  imageAlt,
-  description,
-  buttonText = 'read more',
+    id,
+    title,
+    company,
+    type,
+    location,
+    imageUrl,
+    imageAlt,
+    description,
+    buttonText = 'read more',
+    userRole,
+    isBookmarked,
+    onBookmark,
+    onDelete,
 }) => {
-  const navigate = useNavigate();
-  const [saved, setSaved] = useState(false);
+    const navigate = useNavigate();
 
-  return (
-    <StyledWrapper>
-      <article className="card">
-        <div className="imageWrap">
-          <img className="image" src={imageUrl} alt={imageAlt || title} />
-          <span className="badge">{type}</span>
-        </div>
-        <div className="content">
-          <div className="headerRow">
-            <div
-              className="bookmark"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSaved(!saved);
-                // TODO: await api(`/bookmarks/${id}`, { method: saved ? "DELETE" : "POST", token: user.token })
-              }}
-            >
-              {saved ? <FaBookmark /> : <FaRegBookmark />}
-            </div>
-            <div>
-              <p className="company">{company}</p>
-              <p className="heading">{title}</p>
-            </div>
-          </div>
-          <p className="meta">{location}</p>
-          <p className="para">{description}</p>
-          <YellowButton
-            text={buttonText}
-            onClick={() => navigate(`/jobs/${id}`)}
-          />
-        </div>
-      </article>
-    </StyledWrapper>
-  );
+    return (
+        <StyledWrapper>
+            <article className="card">
+                <div className="imageWrap">
+                    <img className="image" src={imageUrl} alt={imageAlt || title} />
+                    <span className="badge">{type}</span>
+                </div>
+                <div className="content">
+                    <div className="headerRow">
+                        {/* Seeker sees bookmark */}
+                        {userRole === "seeker" && (
+                            <div
+                                className="action-icon"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onBookmark?.(id);
+                                }}
+                            >
+                                {isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
+                            </div>
+                        )}
+                        {/* Admin sees delete */}
+                        {userRole === "admin" && (
+                            <div
+                                className="action-icon delete"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (confirm("Delete this job posting?")) {
+                                        onDelete?.(id);
+                                    }
+                                }}
+                            >
+                                <IoCloseCircleOutline />
+                            </div>
+                        )}
+                        <div>
+                            <p className="company">{company}</p>
+                            <p className="heading">{title}</p>
+                        </div>
+                    </div>
+                    <p className="meta">{location}</p>
+                    <p className="para">{description}</p>
+                    <YellowButton
+                        text={buttonText}
+                        onClick={() => navigate(`/jobs/${id}`)}
+                    />
+                </div>
+            </article>
+        </StyledWrapper>
+    );
 };
 
 const StyledWrapper = styled.div`
@@ -116,9 +136,20 @@ const StyledWrapper = styled.div`
     gap: 12px;
   }
 
-  .bookmark {
+  .action-icon {
     margin-top: 4px;
     flex-shrink: 0;
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.3s;
+  }
+
+  .action-icon:hover {
+    color: #B5CD88;
+  }
+
+  .action-icon.delete:hover {
+    color: #BB616D;
   }
 
   .company {
@@ -156,17 +187,6 @@ const StyledWrapper = styled.div`
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 6.2em;
-  }
-
-  .bookmark {
-    margin-top: 4px;
-    flex-shrink: 0;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
-
-  .bookmark:hover {
-    color: #B5CD88;
   }
 `;
 
