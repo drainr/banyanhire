@@ -24,7 +24,7 @@ const StyledWrapper = styled.div`
     font-size: 15px;
     padding-right: 15px;
     color: #FAF3E8;
-      font-weight: 200;
+      font-weight: 400;
       font-style: normal;
       transform: skewX(-10deg);
       font-variation-settings:
