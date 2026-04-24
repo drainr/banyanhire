@@ -42,6 +42,7 @@ const Sidebar = () => {
     const adminLinks = [
         { path: "/", icon: <IoHomeOutline />, label: "Home" },
         { path: "/admin", icon: <CiViewList />, label: "Dashboard" },
+        { path: "/manage-companies", icon: <IoCreateOutline />, label: "Manage Companies" },
         { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" },
         { path: "/admin/users", icon: <IoCreateOutline />, label: "Manage Users" },
         { path: "/admin/approvals", icon: <BsEye />, label: "View Approvals" },
