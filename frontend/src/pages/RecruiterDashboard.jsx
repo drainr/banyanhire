@@ -7,7 +7,7 @@ const RecruiterDashboard = () => {
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <Sidebar />
-            <nav className="bg-[#FAF3E8] ml-62.5 h-20">
+            <nav className="bg-[#FAF3E8] ml-62.5 h-5">
             </nav>
             <main className="ml-62.5 pb-20">
                 <div className="m-8">
