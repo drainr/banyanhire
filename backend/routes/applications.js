@@ -311,4 +311,29 @@ router.get("/my-applications", protect, async (req, res) => {
     }
 });
 
+// GET - Get all applicants for a specific job (recruiter only)
+router.get("/job/:jobId", protect, async (req, res) => {
+    try {
+        const job = await Job.findById(req.params.jobId);
+
+        if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        // Only the recruiter who posted it or admin can view
+        if (job.recruiterId.toString() !== req.user._id.toString() && req.user.role !== "admin") {
+            return res.status(403).json({ message: "Not authorized to view these applicants" });
+        }
+
+        const applications = await Application.find({ jobId: req.params.jobId })
+            .populate("applicantId", "name email")
+            .sort({ appliedAt: -1 });
+
+        res.status(200).json({ applications });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
+
 module.exports = router;

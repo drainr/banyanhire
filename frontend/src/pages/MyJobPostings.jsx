@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 import { fetchMyJobs, deleteJob } from "../utils/api.js";
-import { IoLocationOutline, IoCalendarOutline, IoCashOutline, IoTrashOutline, IoCreateOutline } from "react-icons/io5";
+import { IoLocationOutline, IoCalendarOutline, IoCashOutline, IoTrashOutline, IoCreateOutline, IoPeopleOutline } from "react-icons/io5";
 import Sidebar from "../components/Sidebar.jsx";
 
 const MyJobPostings = () => {
@@ -135,6 +135,13 @@ const MyJobPostings = () => {
                             </div>
 
                             <div className="flex flex-col gap-2 ml-4">
+                                <button
+                                    onClick={() => navigate(`/jobs/${job._id}/applicants`)}
+                                    className="flex items-center gap-1 px-4 py-2 rounded-full border border-[#B5CD88] text-[#B5CD88] text-sm font-semibold hover:bg-[#B5CD88] hover:text-white transition"
+                                >
+                                    <IoPeopleOutline size={16} />
+                                    Applicants
+                                </button>
                                 <button
                                     onClick={() => navigate(`/edit-job/${job._id}`)}
                                     className="flex items-center gap-1 px-4 py-2 rounded-full border border-[#91D8D4] text-[#91D8D4] text-sm font-semibold hover:bg-[#91D8D4] hover:text-white transition"

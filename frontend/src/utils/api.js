@@ -48,6 +48,15 @@ export const fetchMyJobs = async (token) => {
     return data.jobs || [];
 };
 
+export const fetchApplicants = async (jobId, token) => {
+    const response = await fetch(`${API_BASE_URL}/applications/job/${jobId}`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    if (!response.ok) throw new Error("Failed to fetch applicants");
+    const data = await response.json();
+    return data.applications || [];
+};
+
 export const fetchMyApplications = async (token) => {
     const res = await fetch(`${API_BASE_URL}/applications/my-applications`, {
         headers: {

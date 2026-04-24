@@ -19,6 +19,7 @@ import SavedJobs from "../pages/SavedJobs.jsx";
 import ManageCompanies from "../pages/ManageCompanies.jsx";
 import MyJobPostings from "../pages/MyJobPostings.jsx";
 import ViewUsersAndPostings from "../pages/ViewUsersAndPostings.jsx";
+import ApplicantsList from "../pages/ApplicantsList.jsx";
 
 const MainRoute = () => {
   return (
@@ -54,6 +55,7 @@ const MainRoute = () => {
         <Route path="/jobs/my" element={<MyJobPostings />} />
         <Route path="/create-job" element={<CreateJob />} />
         <Route path="/edit-job/:id" element={<CreateJob />} />
+        <Route path="/jobs/:id/applicants" element={<ApplicantsList />} />
       </Route>
 
       {/* Admin only */}
