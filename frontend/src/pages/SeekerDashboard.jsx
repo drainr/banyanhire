@@ -6,16 +6,19 @@ import { useAuth } from "../hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { fetchSavedJobs } from "../utils/api.js";
 
+/* Scroll Row */
 const ScrollableRow = ({ title, icon, children }) => (
-    <div className="mb-10">
-        <div className="flex items-center gap-2 mb-4">
+    <div className="mb-12">
+        <div className="flex items-center gap-2 mb-5">
             {icon}
+
             <h2 className="league-gothic-font text-[#583927] text-2xl">
                 {title}
             </h2>
         </div>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
+        {/* Added padding so hover scale doesn't get clipped */}
+        <div className="flex gap-5 overflow-x-auto px-3 py-3 pb-5 scrollbar-thin">
             {children}
         </div>
     </div>
@@ -31,11 +34,11 @@ const SeekerDashboard = () => {
     const fallbackSavedJobs = [
         {
             _id: "1",
-            title: "Assistant Professor of CS",
+            title: "Assistant Professor of Computer Science",
             company: "USF",
             location: "Tampa, FL",
             salaryMin: 75000,
-            salaryMax: 95000
+            salaryMax: 95000,
         },
         {
             _id: "2",
@@ -43,7 +46,7 @@ const SeekerDashboard = () => {
             company: "Raymond James",
             location: "St. Petersburg, FL",
             salaryMin: 60000,
-            salaryMax: 80000
+            salaryMax: 80000,
         },
         {
             _id: "3",
@@ -51,8 +54,8 @@ const SeekerDashboard = () => {
             company: "Tech Data",
             location: "Clearwater, FL",
             salaryMin: 85000,
-            salaryMax: 110000
-        }
+            salaryMax: 110000,
+        },
     ];
 
     const appliedJobs = [
@@ -64,7 +67,7 @@ const SeekerDashboard = () => {
             salaryMin: 70000,
             salaryMax: 90000,
             dateApplied: "2026-04-10",
-            status: "Under Review"
+            status: "Under Review",
         },
         {
             _id: "7",
@@ -74,7 +77,7 @@ const SeekerDashboard = () => {
             salaryMin: 45000,
             salaryMax: 60000,
             dateApplied: "2026-04-05",
-            status: "Submitted"
+            status: "Submitted",
         },
         {
             _id: "8",
@@ -84,8 +87,8 @@ const SeekerDashboard = () => {
             salaryMin: 80000,
             salaryMax: 100000,
             dateApplied: "2026-03-28",
-            status: "Viewed"
-        }
+            status: "Viewed",
+        },
     ];
 
     useEffect(() => {
@@ -116,19 +119,27 @@ const SeekerDashboard = () => {
         return `Up to ${format(max)}`;
     };
 
+    const cardClass =
+        "w-[280px] h-[190px] bg-white rounded-xl p-5 shadow-md cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all flex-shrink-0 flex flex-col justify-between";
+
     return (
         <div className="min-h-screen w-full bg-[#FAF3E8]">
             <Sidebar />
 
             <main className="ml-[250px] p-8">
-                <h1 className="league-gothic-font text-[#583927] text-4xl mb-8">
+                <h1 className="league-gothic-font text-[#583927] text-4xl mb-12">
                     WELCOME, {user?.name?.toUpperCase() || "SEEKER"}
                 </h1>
 
                 {/* Saved Jobs */}
                 <ScrollableRow
                     title="SAVED JOBS"
-                    icon={<CiBookmark size={24} className="text-[#B5CD88]" />}
+                    icon={
+                        <CiBookmark
+                            size={24}
+                            className="text-[#B5CD88]"
+                        />
+                    }
                 >
                     {loadingSaved ? (
                         <p className="text-[#583927] text-sm">
@@ -138,23 +149,27 @@ const SeekerDashboard = () => {
                         savedJobs.map((job) => (
                             <div
                                 key={job._id}
-                                onClick={() => navigate(`/jobs/${job._id}`)}
-                                className="min-w-[280px] bg-white rounded-xl p-5 shadow-md cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all flex-shrink-0"
+                                onClick={() =>
+                                    navigate(`/jobs/${job._id}`)
+                                }
+                                className={cardClass}
                             >
-                                <h3 className="font-bold text-[#583927] text-sm mb-1">
-                                    {job.title}
-                                </h3>
+                                <div>
+                                    <h3 className="font-bold text-[#583927] text-sm mb-1 line-clamp-2">
+                                        {job.title}
+                                    </h3>
 
-                                <p className="text-[#91D8D4] text-xs font-semibold mb-3">
-                                    {job.company}
-                                </p>
+                                    <p className="text-[#91D8D4] text-xs font-semibold mb-3">
+                                        {job.company}
+                                    </p>
 
-                                <div className="flex items-center gap-1 text-xs text-[#583927] mb-2">
-                                    <IoLocationOutline
-                                        size={14}
-                                        className="text-[#91D8D4]"
-                                    />
-                                    {job.location}
+                                    <div className="flex items-center gap-1 text-xs text-[#583927]">
+                                        <IoLocationOutline
+                                            size={14}
+                                            className="text-[#91D8D4]"
+                                        />
+                                        {job.location}
+                                    </div>
                                 </div>
 
                                 <div className="text-xs text-[#B5CD88] font-semibold">
@@ -185,26 +200,30 @@ const SeekerDashboard = () => {
                     {appliedJobs.map((job) => (
                         <div
                             key={job._id}
-                            onClick={() => navigate(`/jobs/${job._id}`)}
-                            className="min-w-[280px] bg-white rounded-xl p-5 shadow-md cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all flex-shrink-0"
+                            onClick={() =>
+                                navigate(`/jobs/${job._id}`)
+                            }
+                            className={cardClass}
                         >
-                            <h3 className="font-bold text-[#583927] text-sm mb-1">
-                                {job.title}
-                            </h3>
+                            <div>
+                                <h3 className="font-bold text-[#583927] text-sm mb-1 line-clamp-2">
+                                    {job.title}
+                                </h3>
 
-                            <p className="text-[#91D8D4] text-xs font-semibold mb-2">
-                                {job.company}
-                            </p>
+                                <p className="text-[#91D8D4] text-xs font-semibold mb-2">
+                                    {job.company}
+                                </p>
 
-                            <div className="flex items-center gap-1 text-xs text-[#583927] mb-2">
-                                <IoLocationOutline
-                                    size={14}
-                                    className="text-[#91D8D4]"
-                                />
-                                {job.location}
+                                <div className="flex items-center gap-1 text-xs text-[#583927]">
+                                    <IoLocationOutline
+                                        size={14}
+                                        className="text-[#91D8D4]"
+                                    />
+                                    {job.location}
+                                </div>
                             </div>
 
-                            <div className="flex justify-between items-center mt-3">
+                            <div className="flex justify-between items-center gap-2">
                                 <span className="text-xs text-[#583927]">
                                     Applied:{" "}
                                     {new Date(
@@ -213,10 +232,11 @@ const SeekerDashboard = () => {
                                 </span>
 
                                 <span
-                                    className={`text-xs font-bold px-3 py-1 rounded-full ${
+                                    className={`text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap ${
                                         job.status === "Viewed"
                                             ? "bg-[#F6E58D] text-[#583927]"
-                                            : job.status === "Under Review"
+                                            : job.status ===
+                                            "Under Review"
                                                 ? "bg-[#91D8D4] text-white"
                                                 : "bg-[#B5CD88] text-white"
                                     }`}
