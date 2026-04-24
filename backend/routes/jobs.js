@@ -156,7 +156,13 @@ router.delete("/:id", protect, async (req, res) => {
         }
 
         // Allow recruiter who owns it or admin
-        if (req.user.role !== "admin" && job.recruiterId.toString() !== req.user._id.toString()) {
+        if (req.user.role === "admin") {
+            // Instead of deleting, set isActive to false (soft delete)
+            job.isActive = false;
+            await job.save();
+            return res.status(200).json({ message: "Job hidden (soft deleted) for seekers and recruiters" });
+        }
+        if (job.recruiterId.toString() !== req.user._id.toString()) {
             return res.status(403).json({ message: "Not authorized to delete this job" });
         }
 

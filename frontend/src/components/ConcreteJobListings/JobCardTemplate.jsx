@@ -4,6 +4,8 @@ import YellowButton from '../buttons/YellowButton.jsx';
 import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { deleteJob } from "../../utils/api";
+import { useAuth } from '../../hooks/useAuth.js';
 
 const JobCardTemplate = ({
     id,
@@ -21,6 +23,17 @@ const JobCardTemplate = ({
     onDelete,
 }) => {
     const navigate = useNavigate();
+    const { token } = useAuth();
+
+    const handleDelete = async () => {
+        try {
+            await deleteJob(id, token);
+            alert("Job deleted successfully");
+            if (onDelete) onDelete(id);
+        } catch (error) {
+            alert(error.message);
+        }
+    };
 
     return (
         <StyledWrapper>
@@ -50,7 +63,7 @@ const JobCardTemplate = ({
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     if (confirm("Delete this job posting?")) {
-                                        onDelete?.(id);
+                                        handleDelete();
                                     }
                                 }}
                             >

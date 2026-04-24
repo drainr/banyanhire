@@ -22,19 +22,26 @@ const JobListings = () => {
     const locations = [...new Set(jobs.map((j) => j.location).filter(Boolean))].sort();
     const categories = [...new Set(jobs.map((j) => j.category).filter(Boolean))].sort();
 
-    const filteredJobs = jobs.filter((job) => {
-        if (searchTerm) {
-            const term = searchTerm.toLowerCase();
-            const matchesTitle = job.title?.toLowerCase().includes(term);
-            const matchesCompany = job.company?.toLowerCase().includes(term);
-            if (!matchesTitle && !matchesCompany) return false;
-        }
-        if (filters.location && job.location !== filters.location) return false;
-        if (filters.category && job.category !== filters.category) return false;
-        if (filters.salaryMin && job.salaryMax < Number(filters.salaryMin)) return false;
-        if (filters.salaryMax && job.salaryMin > Number(filters.salaryMax)) return false;
-        return true;
-    });
+    const [removedJobIds, setRemovedJobIds] = useState([]);
+    const handleJobDeleted = (jobId) => {
+        setRemovedJobIds((prev) => [...prev, jobId]);
+    };
+
+    const filteredJobs = jobs
+        .filter((job) => !removedJobIds.includes(job._id))
+        .filter((job) => {
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                const matchesTitle = job.title?.toLowerCase().includes(term);
+                const matchesCompany = job.company?.toLowerCase().includes(term);
+                if (!matchesTitle && !matchesCompany) return false;
+            }
+            if (filters.location && job.location !== filters.location) return false;
+            if (filters.category && job.category !== filters.category) return false;
+            if (filters.salaryMin && job.salaryMax < Number(filters.salaryMin)) return false;
+            if (filters.salaryMax && job.salaryMin > Number(filters.salaryMax)) return false;
+            return true;
+        });
 
     const maxPage = Math.max(1, Math.ceil(filteredJobs.length / pageSize));
 
@@ -73,7 +80,7 @@ const JobListings = () => {
                 {isLoading && <p className="px-8 pt-6 text-[#583927]">Loading jobs...</p>}
                 {error && <p className="px-8 pt-6 text-[#BB616D]">{error}</p>}
                 {!isLoading && !error && (
-                    <JobCardsGrid jobs={filteredJobs} currentPage={currentPage} pageSize={pageSize} />
+                    <JobCardsGrid jobs={filteredJobs} currentPage={currentPage} pageSize={pageSize} onJobDeleted={handleJobDeleted} />
                 )}
                 <div className="pb-20">
                     <Pagination

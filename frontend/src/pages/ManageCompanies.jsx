@@ -35,7 +35,7 @@ const companyData = [
     { id: 26, name: "Princeton University", email: "jobs@princeton.edu", createdAt: "2026-04-07", status: "Approved" },
     { id: 27, name: "Columbia University", email: "hr@columbia.edu", createdAt: "2026-04-01", status: "Approved" },
     { id: 28, name: "Duke University", email: "careers@duke.edu", createdAt: "2026-04-12", status: "Pending" },
-    { id: 29, name: "NYU", email: "jobs@nyu.edu", createdAt: "2026-04-06", status: "Approved" },
+    { id: 29, name: "New York University", email: "jobs@nyu.edu", createdAt: "2026-04-06", status: "Approved" },
     { id: 30, name: "University of Texas", email: "recruit@utexas.edu", createdAt: "2026-04-09", status: "Pending" },
 
     { id: 31, name: "Spotify", email: "jobs@spotify.com", createdAt: "2026-04-14", status: "Approved" },
@@ -211,12 +211,35 @@ export default function ManageCompanies() {
                                         <td className="px-6 py-5">
                                             <div className="flex gap-3">
                                                 <button className="px-4 py-2 rounded-full bg-[#583927] text-white text-sm font-semibold hover:opacity-90 transition" onClick={() =>
-                                                    navigate(`/view`)
+                                                    navigate(`/view/${encodeURIComponent(company.name)}`)
                                                 }>
                                                     View
                                                 </button>
 
-                                                <button className="px-4 py-2 rounded-full border border-[#583927] text-[#583927] text-sm font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition">
+                                                {/* Remove all jobs for this company (admin bulk hide) */}
+                                                <button
+                                                    className="px-4 py-2 rounded-full border border-[#583927] text-[#583927] text-sm font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition"
+                                                    onClick={async () => {
+                                                        if (window.confirm(`Hide all jobs for ${company.name}? This will hide them from seekers and recruiters.`)) {
+                                                            try {
+                                                                // Fetch all jobs, filter by institution/companyName, and delete (hide) each
+                                                                const { fetchJobs, deleteJob } = await import("../utils/api");
+                                                                const allJobs = await fetchJobs();
+                                                                const jobsToDelete = allJobs.filter(j => String(j.institution) === company.name || (j.recruiter && j.recruiter.companyName === company.name));
+                                                                for (const job of jobsToDelete) {
+                                                                    try {
+                                                                        await deleteJob(job._id, localStorage.getItem("token"));
+                                                                    } catch (e) {
+                                                                        // ignore individual errors
+                                                                    }
+                                                                }
+                                                                alert("All jobs for this company have been hidden.");
+                                                            } catch (err) {
+                                                                alert("Error hiding jobs: " + err.message);
+                                                            }
+                                                        }
+                                                    }}
+                                                >
                                                     Remove
                                                 </button>
                                             </div>
@@ -240,8 +263,8 @@ export default function ManageCompanies() {
                         <div className="mt-8 flex justify-center">
                         <Pagination
                             currentPage={currentPage}
-                            totalPages={totalPages}
-                            onPageChange={setCurrentPage}
+                            maxPage={totalPages}
+                            onPageSelect={setCurrentPage}
                         />
                     </div>
                     </div>
