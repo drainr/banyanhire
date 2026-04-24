@@ -283,5 +283,18 @@ router.put("/update-job-applications/:jobId", protect, async (req, res) => {
 });
 
 // TODO: Add more application routes (get, update status, etc.)
+// GET - Get applications for logged-in user
+router.get("/my-applications", protect, async (req, res) => {
+    try {
+        const applications = await Application.find({
+            applicantId: req.user._id
+        }).populate("jobId");
+
+        res.json({ applications });  // wrap in object
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+});
 
 module.exports = router;

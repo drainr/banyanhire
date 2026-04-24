@@ -48,6 +48,22 @@ export const fetchMyJobs = async (token) => {
     return data.jobs || [];
 };
 
+export const fetchMyApplications = async (token) => {
+    const res = await fetch(`${API_BASE_URL}/applications/my-applications`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch applications");
+    }
+    
+    const data = await res.json();
+
+    return data.applications || data.jobs || [];
+};
+
 const request = async (path, body) => {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method: "POST",
