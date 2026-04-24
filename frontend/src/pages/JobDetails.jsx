@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchJobById } from "../utils/api.js";
+import { fetchJobById, deleteJob } from "../utils/api.js";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import AquaButton from "../components/buttons/AquaButton.jsx";
 import PinkButton from "../components/buttons/PinkButton.jsx";
@@ -11,7 +11,7 @@ import Sidebar from "../components/Sidebar.jsx";
 
 export default function JobDetails() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,9 +47,14 @@ export default function JobDetails() {
     setCoverLetter("");
   };
 
-  const handleDelete = () => {
-    alert("Job deleted");
-    navigate("/jobs");
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this job posting?")) return;
+    try {
+        await deleteJob(id, token);
+        navigate("/jobs");
+    } catch (err) {
+        alert(err.message || "Failed to delete job");
+    }
   };
 
   const formatDate = (dateStr) => {
