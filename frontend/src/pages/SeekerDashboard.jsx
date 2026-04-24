@@ -1,9 +1,10 @@
-import React from 'react';
-import { IoLocationOutline, IoBriefcaseOutline } from "react-icons/io5";
+import React, { useState, useEffect } from 'react';
+import { IoBriefcaseOutline, IoLocationOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
+import { fetchSavedJobs } from "../utils/api.js";
 
 const ScrollableRow = ({ title, icon, children }) => (
     <div className="mb-8">
@@ -19,25 +20,30 @@ const ScrollableRow = ({ title, icon, children }) => (
 
 const SeekerDashboard = () => {
     const navigate = useNavigate();
-    const { user } = useAuth();
+    const { user, token } = useAuth();
+    const [savedJobs, setSavedJobs] = useState([]);
+    const [loadingSaved, setLoadingSaved] = useState(true);
 
-    const savedJobs = [
-        { _id: "1", title: "Assistant Professor of CS", company: "USF", location: "Tampa, FL", salaryMin: 75000, salaryMax: 95000 },
-        { _id: "2", title: "Data Analyst", company: "Raymond James", location: "St. Petersburg, FL", salaryMin: 60000, salaryMax: 80000 },
-        { _id: "3", title: "Research Scientist", company: "Moffitt Cancer Center", location: "Tampa, FL", salaryMin: 70000, salaryMax: 90000 },
-        { _id: "4", title: "Software Engineer", company: "Tech Data", location: "Clearwater, FL", salaryMin: 85000, salaryMax: 110000 },
-        { _id: "5", title: "UX Designer", company: "Nielsen", location: "Oldsmar, FL", salaryMin: 65000, salaryMax: 85000 },
-    ];
-
+    // TODO: replace with real API call when application routes exist
     const appliedJobs = [
-        { _id: "6", title: "Frontend Developer", company: "Publix", location: "Lakeland, FL", salaryMin: 70000, salaryMax: 90000, dateApplied: "2026-04-10", status: "Under Review" },
-        { _id: "7", title: "IT Support Specialist", company: "BayCare", location: "Clearwater, FL", salaryMin: 45000, salaryMax: 60000, dateApplied: "2026-04-05", status: "Submitted" },
-        { _id: "8", title: "Database Administrator", company: "USAA", location: "Tampa, FL", salaryMin: 80000, salaryMax: 100000, dateApplied: "2026-03-28", status: "Viewed" },
+        { _id: "6", title: "Frontend Developer", company: "Publix", location: "Lakeland, FL", dateApplied: "2026-04-10", status: "Under Review" },
+        { _id: "7", title: "IT Support Specialist", company: "BayCare", location: "Clearwater, FL", dateApplied: "2026-04-05", status: "Submitted" },
     ];
+
+    useEffect(() => {
+        if (token) {
+            fetchSavedJobs(token)
+                .then(jobs => setSavedJobs(jobs))
+                .catch(() => setSavedJobs([]))
+                .finally(() => setLoadingSaved(false));
+        }
+    }, [token]);
 
     const formatSalary = (min, max) => {
+        if (!min && !max) return "Not listed";
         const fmt = (n) => "$" + (n / 1000).toFixed(0) + "k";
-        return `${fmt(min)} – ${fmt(max)}`;
+        if (min && max) return `${fmt(min)} – ${fmt(max)}`;
+        return min ? `From ${fmt(min)}` : `Up to ${fmt(max)}`;
     };
 
     return (
@@ -52,14 +58,16 @@ const SeekerDashboard = () => {
                     title="SAVED JOBS"
                     icon={<CiBookmark size={22} className="text-[#B5CD88]" />}
                 >
-                    {savedJobs.length > 0 ? savedJobs.map((job) => (
+                    {loadingSaved ? (
+                        <p className="text-[#583927] text-sm">Loading saved jobs...</p>
+                    ) : savedJobs.length > 0 ? savedJobs.map((job) => (
                         <div
                             key={job._id}
                             onClick={() => navigate(`/jobs/${job._id}`)}
                             className="min-w-[280px] max-w-[280px] bg-white rounded-xl p-5 shadow-md cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all flex-shrink-0"
                         >
                             <h3 className="font-bold text-[#583927] text-sm mb-1 truncate">{job.title}</h3>
-                            <p className="text-[#91D8D4] text-xs font-semibold mb-3">{job.company}</p>
+                            <p className="text-[#91D8D4] text-xs font-semibold mb-3">{job.institution || job.company}</p>
                             <div className="flex items-center gap-1 text-xs text-[#583927] mb-1">
                                 <IoLocationOutline size={14} className="text-[#91D8D4]" />
                                 {job.location}

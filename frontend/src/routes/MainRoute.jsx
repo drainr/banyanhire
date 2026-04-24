@@ -14,6 +14,7 @@ import JobListing from "../pages/JobListings.jsx";
 import CompanyProfile from "../pages/CompanyProfile.jsx";
 import CreateJob from "../pages/CreateEditJob.jsx";
 import RecruiterProfileAccordions from "../components/RecruiterDashboardComponents/RecruiterProfileAccordion.jsx";
+import SavedJobs from "../pages/SavedJobs.jsx";
 
 const MainRoute = () => {
   return (
@@ -33,6 +34,7 @@ const MainRoute = () => {
       {/* Seeker only */}
       <Route element={<PrivateRoute allowedRoles={["seeker"]} />}>
         <Route path="/seeker" element={<SeekerDashboard />} />
+        <Route path="/jobs/saved" element={<SavedJobs />} />
       </Route>
 
       {/* Recruiter only */}
