@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const GreenButton = ({text, onClick}) => {
+const YellowButton = ({text, onClick}) => {
     return (
         <StyledWrapper>
             <button onClick={onClick}>{text}</button>
@@ -46,4 +46,4 @@ const StyledWrapper = styled.div`
    width: 100%;
   }`;
 
-export default GreenButton;
+export default YellowButton;
