@@ -95,3 +95,21 @@ export const deleteJob = async (jobId, token) => {
     if (!response.ok) throw new Error("Failed to delete job");
     return response.json();
 };
+
+export const submitApplication = async (jobId, resumeURL, coverLetter, token) => {
+    const response = await fetch(`${API_BASE_URL}/applications/apply`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            jobId,
+            resumeURL,
+            coverLetter: coverLetter || ""
+        })
+    });
+
+    const data = await response.json();
+    return data;
+};
