@@ -1,23 +1,20 @@
-import Footer from '../components/Footer.jsx';
-import ApprovalVideoBox from '../components/ApprovalPageComponents/VideoBoxapproval.jsx';
+import { useNavigate } from "react-router-dom";
 
-const ApprovalPage = () => {
+export default function PendingApproval() {
+    const navigate = useNavigate();
+
     return (
-        <div className="bg-[#583927]">
-            {/* main body */}
-            {/* control the static size of the home screen */}
-            <main className="h-[800px] py-6 px-4">
-                {/* movie box */}
-                <ApprovalVideoBox />
-                <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
-                </div>
-            </main>
-
-
-            {/* footer */}
-            <Footer />
+        <div className="flex flex-col items-center justify-center h-screen gap-6 bg-[#FAF3E8]">
+            <h1 className="text-4xl font-bold text-[#583927]">Account Pending Approval</h1>
+            <p className="text-[#583927]/70">An admin will review your recruiter account shortly.</p>
+            <div className="flex gap-4">
+                <button onClick={() => navigate("/")} className="px-6 py-3 rounded-full border border-[#583927] text-[#583927] font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition">
+                    Home
+                </button>
+                <button onClick={() => navigate("/auth")} className="px-6 py-3 rounded-full border border-[#583927] text-[#583927] font-semibold hover:bg-[#583927] hover:text-[#FAF3E8] transition">
+                    Sign In
+                </button>
+            </div>
         </div>
     );
-};
-
-export default ApprovalPage;
+}

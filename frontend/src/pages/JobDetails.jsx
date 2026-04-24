@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchJobById } from "../utils/api.js";
+import { fetchJobById, submitApplication, deleteJob } from "../utils/api.js";
+import { uploadToCloudinary } from "../utils/cloudinary.js";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import AquaButton from "../components/buttons/AquaButton.jsx";
 import PinkButton from "../components/buttons/PinkButton.jsx";
@@ -9,9 +10,11 @@ import { CiBookmark } from "react-icons/ci";
 import { useAuth } from "../hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3005/api";
+
 export default function JobDetails() {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +23,8 @@ export default function JobDetails() {
   const [showApplyForm, setShowApplyForm] = useState(false);
   const [resume, setResume] = useState(null);
   const [coverLetter, setCoverLetter] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const userRole = user?.role;
 
@@ -39,17 +44,63 @@ export default function JobDetails() {
     loadJob();
   }, [id]);
 
-  const handleApply = (e) => {
+  const handleApply = async (e) => {
     e.preventDefault();
-    alert("Application submitted!");
-    setShowApplyForm(false);
-    setResume(null);
-    setCoverLetter("");
+    setSubmitError("");
+
+    if (!resume) {
+      setSubmitError("Please upload a resume");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Step 1: Upload resume to Cloudinary
+      console.log("Uploading resume to Cloudinary...");
+      const resumeUrl = await uploadToCloudinary(resume);
+      console.log("Resume uploaded:", resumeUrl);
+
+      // Step 2: Submit application to backend
+      const response = await fetch(`${API_BASE_URL}/applications/apply`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          jobId: id,
+          resumeURL: resumeUrl,
+          coverLetter: coverLetter
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Application submitted successfully!");
+        setShowApplyForm(false);
+        setResume(null);
+        setCoverLetter("");
+      } else {
+        setSubmitError(data.message || "Failed to submit application");
+      }
+    } catch (error) {
+      console.error("Application error:", error);
+      setSubmitError(error.message || "Error submitting application");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleDelete = () => {
-    alert("Job deleted");
-    navigate("/jobs");
+  const handleDelete = async () => {
+    if (!confirm("Are you sure you want to delete this job posting?")) return;
+    try {
+        await deleteJob(id, token);
+        navigate("/jobs");
+    } catch (err) {
+        alert(err.message || "Failed to delete job");
+    }
   };
 
   const formatDate = (dateStr) => {
@@ -225,9 +276,27 @@ export default function JobDetails() {
                     />
                   </div>
 
+                  {submitError && (
+                    <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                      {submitError}
+                    </div>
+                  )}
+
                   <div className="flex justify-center gap-3">
-                    <GreenButton text="Submit" onClick={handleApply} />
-                    <PinkButton text="Cancel" onClick={() => setShowApplyForm(false)} />
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-6 py-2 bg-[#B5CD88] hover:bg-[#a0b875] disabled:bg-gray-400 text-white font-bold rounded-lg transition"
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowApplyForm(false)}
+                      className="px-6 py-2 bg-[#BB616D] hover:bg-[#a0505c] text-white font-bold rounded-lg transition"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </form>
               </div>
