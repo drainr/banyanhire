@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../hooks/useAuth.js";
 import PinkButton from "./buttons/PinkButton.jsx";
 import { IoCompassOutline, IoBriefcaseOutline, IoCreateOutline, IoHomeOutline } from "react-icons/io5";
 import { CiBookmark, CiViewList } from "react-icons/ci";
