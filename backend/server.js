@@ -9,16 +9,15 @@ const protectedRoutes = require("./routes/protected");
 const bookmarkRoutes = require("./routes/bookmarks");
 
 const app = express();
-app.use(express.json());
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https://banyanhire.netlify.app/"
+    "https://banyanhire.netlify.app"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
-
+app.use(express.json());
 // Root route
 app.get("/", (req, res) => {
   res.json({ message: "BanyanHire Backend Server is running ✓" });
