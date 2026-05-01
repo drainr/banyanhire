@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import "../App.css";
 import AquaButton from "../components/buttons/AquaButton.jsx";
 import { AuthContext } from "../context/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function Login() {
     const [state, setState] = useState({
         email: "",
         password: ""
     });
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -60,13 +62,24 @@ function Login() {
                     value={state.email}
                     onChange={handleChange}
                 />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    value={state.password}
-                    onChange={handleChange}
-                />
+                <div className="relative w-full">
+    <input
+        type={showPassword ? "text" : "password"}
+        name="password"
+        placeholder="Password"
+        value={state.password}
+        onChange={handleChange}
+        className="w-full pr-10"
+    />
+
+    <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+    >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </button>
+</div>
                 <a className="p-3" href="#">Forgot your password?</a>
                 {error && <p className="text-red-600">{error}</p>}
                 <AquaButton text="Sign In" />

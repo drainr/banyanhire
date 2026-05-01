@@ -5,6 +5,8 @@ import Pagination from "../components/Pagination.jsx";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
 import useJobs from "../Hooks/useJobs.js";
 import Sidebar from "../components/Sidebar.jsx";
+import { saveJob, unsaveJob, fetchSavedJobs } from "../utils/api.js";
+import { useAuth } from "../hooks/useAuth.js";
 
 const JobListings = () => {
     const pageSize = 8;

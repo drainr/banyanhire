@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GreenButton from "../components/buttons/GreenButton.jsx";
 import { AuthContext } from "../context/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function SignUp() {
     const [state, setState] = useState({
@@ -10,6 +11,7 @@ function SignUp() {
         password: "",
         role: ""
     });
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const { register } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -91,14 +93,24 @@ function SignUp() {
                     onChange={handleChange}
                     placeholder="Email"
                 />
-                <input
-                    className="pb-2"
-                    type="password"
-                    name="password"
-                    value={state.password}
-                    onChange={handleChange}
-                    placeholder="Password"
-                />
+                <div className="relative w-full">
+    <input
+        className="pb-2 w-full pr-10"
+        type={showPassword ? "text" : "password"}
+        name="password"
+        value={state.password}
+        onChange={handleChange}
+        placeholder="Password"
+    />
+
+    <button
+        type="button"
+        onClick={() => setShowPassword(!showPassword)}
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+    >
+        {showPassword ? <FaEyeSlash /> : <FaEye />}
+    </button>
+</div>
                 {error && <p className="text-red-600">{error}</p>}
                 <GreenButton text="Sign Up" />
             </form>
