@@ -27,6 +27,7 @@ export default function JobDetails() {
   const [coverLetter, setCoverLetter] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const userRole = user?.role;
 
@@ -110,7 +111,7 @@ export default function JobDetails() {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Application submitted successfully!");
+        setSubmitSuccess(true);
         setShowApplyForm(false);
         setResume(null);
         setCoverLetter("");
@@ -302,6 +303,11 @@ export default function JobDetails() {
             )}
             {userRole === "admin" && (
               <PinkButton text="Delete Job" onClick={handleDelete} />
+            )}
+            {submitSuccess && (
+              <div className="mt-4 p-4 bg-[#B5CD88] text-white rounded-xl text-center font-semibold">
+                ✓ Your application has been submitted successfully!
+              </div>
             )}
           </div>
 
