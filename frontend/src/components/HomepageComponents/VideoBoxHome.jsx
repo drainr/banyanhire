@@ -2,7 +2,7 @@
 
 import React from 'react';
 import heroVideo from './hero.mp4';
-import OverlayHome from './Homepageoverlay.jsx';
+import OverlayHome from './HomepageOverlay.jsx';
 
 // video box config
 const VideoBox = ({
