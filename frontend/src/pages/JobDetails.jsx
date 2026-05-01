@@ -195,15 +195,15 @@ export default function JobDetails() {
             <button
               onClick={handleBookmark}
               className="flex items-center gap-1 text-[#FAF3E8] hover:text-[#B5CD88] transition-colors"
-              >
+            >
               <CiBookmark
-                  size={24}
-                  className={bookmarked ? "fill-[#B5CD88] text-[#B5CD88]" : ""}
-                />
+                size={24}
+                className={bookmarked ? "fill-[#B5CD88] text-[#B5CD88]" : ""}
+              />
               <span className="text-sm">{bookmarked ? "Saved" : "Save"}</span>
             </button>
-      </div>
-    )}
+          </div>
+        )}
 
         <div className="max-w-3xl mx-auto px-6 py-8">
           <div className="mb-8">
@@ -265,7 +265,60 @@ export default function JobDetails() {
             </div>
           </div>
 
-          {/* (rest of your UI unchanged) */}
+          {/* Action buttons */}
+          {userRole === "seeker" && (
+            <div className="mt-6">
+              <GreenButton text="Apply Now" onClick={() => setShowApplyForm(true)} />
+            </div>
+          )}
+
+          {(userRole === "recruiter" || userRole === "admin") && (
+            <div className="mt-6 flex gap-3">
+              <AquaButton text="Edit" onClick={() => navigate(`/jobs/${id}/edit`)} />
+              <PinkButton text="Delete" onClick={handleDelete} />
+            </div>
+          )}
+
+          {/* Apply form */}
+          {showApplyForm && (
+            <div className="mt-6 bg-white rounded-xl p-6">
+              <h2 className="text-[#583927] text-xl font-bold mb-4">Submit Application</h2>
+              <form onSubmit={handleApply} className="flex flex-col gap-4">
+                <div>
+                  <label className="text-[#583927] text-sm font-semibold block mb-1">
+                    Resume (PDF)
+                  </label>
+                  <input
+                    type="file"
+                    accept=".pdf"
+                    onChange={(e) => setResume(e.target.files[0])}
+                    className="w-full"
+                  />
+                </div>
+                <div>
+                  <label className="text-[#583927] text-sm font-semibold block mb-1">
+                    Cover Letter (optional)
+                  </label>
+                  <textarea
+                    value={coverLetter}
+                    onChange={(e) => setCoverLetter(e.target.value)}
+                    rows={4}
+                    className="w-full border rounded-lg p-2 text-[#583927]"
+                    placeholder="Write a short cover letter..."
+                  />
+                </div>
+                {submitError && <p className="text-[#BB616D] text-sm">{submitError}</p>}
+                <div className="flex gap-3">
+                  <GreenButton
+                    text={isSubmitting ? "Submitting..." : "Submit Application"}
+                    type="submit"
+                    disabled={isSubmitting}
+                  />
+                  <AquaButton text="Cancel" onClick={() => setShowApplyForm(false)} />
+                </div>
+              </form>
+            </div>
+          )}
         </div>
       </div>
     </div>
