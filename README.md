@@ -215,6 +215,16 @@ Fonts:
 
 ---
 
+# JWT Authentication Flow
+
+- Token generation on login/registration (jwt.sign({id})) then returned to frontend alongside user data
+- Token stored in frontend in localStorage (for persistence after frontend closed but backend is up) and as a React state (easily callable during session)
+- When making authenticated API calls, tokens are sent in the Authorization header needed by all protected API endpoints
+- Token verification works in protect where the token is extracted from the Authorization header then verified against the jwt secret- if valid, attaches the user data to the requested object else returns 401
+- Any routes that need authentcation use that protect middleware
+
+---
+
 # Running Locally
 
 ## Backend
