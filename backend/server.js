@@ -10,7 +10,12 @@ const bookmarkRoutes = require("./routes/bookmarks");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://your-site.netlify.app"
+  ]
+}));
 
 // Root route
 app.get("/", (req, res) => {
