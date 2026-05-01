@@ -4,6 +4,9 @@ A Platform where recruiters and Job Seekers can fullfill their needs. Recruiters
 
 
 ---
+## trailer
+- https://youtu.be/yS84OWd0d8A
+- https://youtu.be/wNEeQT8vhCs
 
 ## Team
 
