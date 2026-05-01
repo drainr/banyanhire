@@ -16,7 +16,7 @@ const dashboardCards = [
     {
         title: "Manage Seekers",
         text: "View and manage all seekers.",
-        icon: <CiViewList size={30} />,
+        icon: <BsEye size={30} />,
         path: "/manage-seekers",
     },
     {
@@ -24,7 +24,7 @@ const dashboardCards = [
         text: "Review job postings by companies.",
         icon: <IoCreateOutline size={30} />,
         path: "/jobs",
-    }
+    },
 ];
 
 const AdminDashboardBoxes = () => {

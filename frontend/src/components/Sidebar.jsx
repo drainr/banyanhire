@@ -42,9 +42,9 @@ const Sidebar = () => {
     const adminLinks = [
         { path: "/", icon: <IoHomeOutline />, label: "Home" },
         { path: "/admin", icon: <CiViewList />, label: "Dashboard" },
-        { path: "/manage-recruiters", icon: <IoCreateOutline />, label: "Manage Recruiters" },
-        { path: "/manage-seekers", icon: <IoCreateOutline />, label: "Manage Seekers" },
-        { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" }
+        { path: "/manage-recruiters", icon: <IoBriefcaseOutline />, label: "Manage Recruiters" },
+        { path: "/manage-seekers", icon: <BsEye />, label: "Manage Seekers" },
+        { path: "/jobs", icon: <IoCreateOutline />, label: "Manage Job Postings" },
     ];
 
     const getLinks = () => {
