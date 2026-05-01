@@ -189,21 +189,21 @@ export default function JobDetails() {
       <Sidebar />
 
       <div className="ml-62.5">
-        {/* Bookmark bar */}
-        <div className="bg-[#583927] py-3 px-6 flex items-center justify-end">
-          <button
-            onClick={handleBookmark}
-            className="flex items-center gap-1 text-[#FAF3E8] hover:text-[#B5CD88] transition-colors"
-          >
-            <CiBookmark
-              size={24}
-              className={bookmarked ? "fill-[#B5CD88] text-[#B5CD88]" : ""}
-            />
-            <span className="text-sm">
-              {bookmarked ? "Saved" : "Save"}
-            </span>
-          </button>
-        </div>
+        {/* Bookmark bar (seekers only) */}
+        {userRole === "seeker" && (
+          <div className="bg-[#583927] py-3 px-6 flex items-center justify-end">
+            <button
+              onClick={handleBookmark}
+              className="flex items-center gap-1 text-[#FAF3E8] hover:text-[#B5CD88] transition-colors"
+              >
+              <CiBookmark
+                  size={24}
+                  className={bookmarked ? "fill-[#B5CD88] text-[#B5CD88]" : ""}
+                />
+              <span className="text-sm">{bookmarked ? "Saved" : "Save"}</span>
+            </button>
+      </div>
+    )}
 
         <div className="max-w-3xl mx-auto px-6 py-8">
           <div className="mb-8">
