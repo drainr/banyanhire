@@ -275,7 +275,9 @@ BanyanHire sends automated emails using Nodemailer for key platform events:
 | `/manage-recruiters` | ManageRecruiters | Recruiter account oversight |
 | `/view/:id` | ViewUsersAndPostings | User and posting management |
 
+---
 
+## UML State Diagram
 <img width="2211" height="2556" alt="UML state diagram - Banyanhire" src="https://github.com/user-attachments/assets/02a315e1-8fd1-4fd1-b92f-2cced553ca05" />
 
 ---
