@@ -5,7 +5,7 @@ import { FaRegBookmark, FaBookmark } from 'react-icons/fa6';
 import { IoCloseCircleOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import { deleteJob } from "../../utils/api";
-import { useAuth } from '../../hooks/useAuth.js';
+import { useAuth } from '../../Hooks/useAuth.js';
 
 const JobCardTemplate = ({
     id,

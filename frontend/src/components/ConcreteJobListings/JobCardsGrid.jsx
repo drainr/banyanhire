@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import JobCardTemplate from './JobCardTemplate.jsx';
-import { useAuth } from '../../hooks/useAuth.js';
+import { useAuth } from '../../Hooks/useAuth.js';
 import { fetchSavedJobs, saveJob, unsaveJob, deleteJob } from '../../utils/api.js';
 
 const fallbackImageUrl =

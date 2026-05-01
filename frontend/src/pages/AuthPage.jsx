@@ -4,7 +4,7 @@ import SignInForm from "./Login.jsx";
 import SignUpForm from "./SignUp.jsx";
 import { useNavigate, Navigate } from "react-router-dom";
 import { IoHomeOutline } from "react-icons/io5";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 
 export default function AuthPage() {
     const [type, setType] = useState("signIn");

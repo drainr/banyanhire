@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import Sidebar from "../components/Sidebar.jsx";
 import Pagination from "../components/Pagination";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import { fetchRecruiters, disableUser, fetchRecruiterJobs, approveRecruiter, rejectRecruiter } from "../utils/api.js";
 
 export default function ManageRecruiters() {

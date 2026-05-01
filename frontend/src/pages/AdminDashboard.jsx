@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { fetchRecruiters, fetchSeekers, fetchJobs } from "../utils/api.js";
 import { HiOutlineBriefcase, HiOutlineUsers, HiOutlineUserGroup, HiOutlineClipboardList } from "react-icons/hi";

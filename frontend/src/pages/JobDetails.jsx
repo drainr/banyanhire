@@ -7,7 +7,7 @@ import AquaButton from "../components/buttons/AquaButton.jsx";
 import PinkButton from "../components/buttons/PinkButton.jsx";
 import { IoLocationOutline, IoCalendarOutline, IoCashOutline, IoBriefcaseOutline, IoSchoolOutline, IoTimeOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 
 const API_BASE_URL =

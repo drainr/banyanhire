@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import { fetchMyJobs, deleteJob } from "../utils/api.js";
 import { IoLocationOutline, IoCalendarOutline, IoCashOutline, IoTrashOutline, IoCreateOutline, IoPeopleOutline } from "react-icons/io5";
 import Sidebar from "../components/Sidebar.jsx";

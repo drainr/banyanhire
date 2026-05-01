@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 
 export default function UserProfile({ embedded = false }) {

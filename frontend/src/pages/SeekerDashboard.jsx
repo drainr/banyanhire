@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { IoLocationOutline, IoBriefcaseOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { fetchSavedJobs, fetchMyApplications } from "../utils/api.js";
 

@@ -3,10 +3,10 @@ import Searchbar from "../components/Searchbar.jsx";
 import FilterBar from "../components/FilterBar.jsx";
 import Pagination from "../components/Pagination.jsx";
 import JobCardsGrid from "../components/ConcreteJobListings/JobCardsGrid.jsx";
-import useJobs from "../hooks/useJobs.js";
+import useJobs from "../Hooks/useJobs.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { saveJob, unsaveJob, fetchSavedJobs } from "../utils/api.js";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 
 const JobListings = () => {
     const pageSize = 8;

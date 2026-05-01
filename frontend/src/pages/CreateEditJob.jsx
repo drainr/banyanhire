@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import { createJob, updateJob, fetchJobById } from "../utils/api.js";
 import Sidebar from "../components/Sidebar.jsx";
 

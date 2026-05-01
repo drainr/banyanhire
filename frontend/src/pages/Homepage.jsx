@@ -7,7 +7,7 @@ import GreenButton from '../components/buttons/GreenButton.jsx';
 import HomepageExtraSection from "../components/HomepageComponents/HomepageExtraSection.jsx";
 import UniversityCarousel from "../components/HomepageComponents/UniversityCarousel.jsx";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 
 const Homepage = () => {
     const navigate = useNavigate();

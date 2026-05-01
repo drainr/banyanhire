@@ -3,7 +3,7 @@ import '../App.css'
 import logo from '../assets/logo-banyanhire.png';
 import NavbarAnimationButton from "./buttons/NavbarAnimationButton.jsx";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import PinkButton from './buttons/PinkButton.jsx';
 
 const Navbar = () => {

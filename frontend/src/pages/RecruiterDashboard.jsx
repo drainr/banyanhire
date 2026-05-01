@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IoBriefcaseOutline } from "react-icons/io5";
-import { useAuth } from "../hooks/useAuth.js";
+import { useAuth } from "../Hooks/useAuth.js";
 import Sidebar from "../components/Sidebar.jsx";
 import { fetchMyJobs, fetchApplicants } from "../utils/api.js";
 
