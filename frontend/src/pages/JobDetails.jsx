@@ -292,7 +292,7 @@ export default function JobDetails() {
           </div>
 
           <div className="flex gap-3 justify-center">
-            {userRole === "seeker" && (
+            {userRole === "seeker" && !submitSuccess && (
               <GreenButton text="Apply Now" onClick={() => setShowApplyForm(true)} />
             )}
             {userRole === "recruiter" && (
@@ -304,12 +304,13 @@ export default function JobDetails() {
             {userRole === "admin" && (
               <PinkButton text="Delete Job" onClick={handleDelete} />
             )}
-            {submitSuccess && (
-              <div className="mt-4 p-4 bg-[#B5CD88] text-white rounded-xl text-center font-semibold">
-                ✓ Your application has been submitted successfully!
-              </div>
-            )}
           </div>
+
+          {submitSuccess && (
+            <div className="mt-4 p-4 bg-[#B5CD88] text-white rounded-xl text-center font-semibold">
+              ✓ Your application has been submitted successfully!
+            </div>
+          )}
 
           {showApplyForm && (
             <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
