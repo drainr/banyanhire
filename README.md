@@ -10,7 +10,7 @@ A full-stack job portal where job recruiters and seekers can fullfill their need
 
 ---
 ## Live Link: 
-- 
+- https://banyanhire.netlify.app/
 
 ## Team
 

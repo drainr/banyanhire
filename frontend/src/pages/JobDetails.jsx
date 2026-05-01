@@ -265,58 +265,103 @@ export default function JobDetails() {
             </div>
           </div>
 
-          {/* Action buttons */}
-          {userRole === "seeker" && (
-            <div className="mt-6">
+          <div className="mb-6">
+            <h2 className="league-gothic-font text-[#583927] text-2xl mb-3">JOB DESCRIPTION</h2>
+            <p className="text-[#583927] leading-relaxed">{job.description}</p>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="league-gothic-font text-[#583927] text-2xl mb-3">QUALIFICATIONS</h2>
+            <p className="text-[#583927] leading-relaxed">{job.qualifications}</p>
+          </div>
+
+          <div className="mb-8 bg-white rounded-xl p-5">
+            <div className="flex items-center gap-3 mb-3">
+              <IoTimeOutline size={20} className="text-[#91D8D4]" />
+              <span className="text-sm text-[#583927]">
+                <strong>Posted:</strong> {formatDate(job.createdAt || job.postedDate)}
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              <IoSchoolOutline size={20} className="text-[#91D8D4]" />
+              <span className="text-sm text-[#583927]">
+                <strong>Expected start:</strong> {formatDate(job.expectedStartDate)}
+              </span>
+            </div>
+          </div>
+
+          <div className="flex gap-3 justify-center">
+            {userRole === "seeker" && (
               <GreenButton text="Apply Now" onClick={() => setShowApplyForm(true)} />
-            </div>
-          )}
+            )}
+            {userRole === "recruiter" && (
+              <>
+                <AquaButton text="Edit" onClick={() => navigate(`/jobs/edit/${id}`)} />
+                <PinkButton text="Delete" onClick={handleDelete} />
+              </>
+            )}
+            {userRole === "admin" && (
+              <PinkButton text="Delete Job" onClick={handleDelete} />
+            )}
+          </div>
 
-          {(userRole === "recruiter" || userRole === "admin") && (
-            <div className="mt-6 flex gap-3">
-              <AquaButton text="Edit" onClick={() => navigate(`/jobs/${id}/edit`)} />
-              <PinkButton text="Delete" onClick={handleDelete} />
-            </div>
-          )}
-
-          {/* Apply form */}
           {showApplyForm && (
-            <div className="mt-6 bg-white rounded-xl p-6">
-              <h2 className="text-[#583927] text-xl font-bold mb-4">Submit Application</h2>
-              <form onSubmit={handleApply} className="flex flex-col gap-4">
-                <div>
-                  <label className="text-[#583927] text-sm font-semibold block mb-1">
-                    Resume (PDF)
-                  </label>
-                  <input
-                    type="file"
-                    accept=".pdf"
-                    onChange={(e) => setResume(e.target.files[0])}
-                    className="w-full"
-                  />
-                </div>
-                <div>
-                  <label className="text-[#583927] text-sm font-semibold block mb-1">
-                    Cover Letter (optional)
-                  </label>
-                  <textarea
-                    value={coverLetter}
-                    onChange={(e) => setCoverLetter(e.target.value)}
-                    rows={4}
-                    className="w-full border rounded-lg p-2 text-[#583927]"
-                    placeholder="Write a short cover letter..."
-                  />
-                </div>
-                {submitError && <p className="text-[#BB616D] text-sm">{submitError}</p>}
-                <div className="flex gap-3">
-                  <GreenButton
-                    text={isSubmitting ? "Submitting..." : "Submit Application"}
-                    type="submit"
-                    disabled={isSubmitting}
-                  />
-                  <AquaButton text="Cancel" onClick={() => setShowApplyForm(false)} />
-                </div>
-              </form>
+            <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+              <div className="bg-[#FAF3E8] rounded-2xl p-8 w-full max-w-lg mx-4 shadow-2xl">
+                <h2 className="league-gothic-font text-[#583927] text-3xl mb-6 text-center">
+                  APPLY FOR THIS POSITION
+                </h2>
+                <form onSubmit={handleApply}>
+                  <div className="mb-4">
+                    <label className="text-xs font-extrabold uppercase tracking-widest text-[#91D8D4] mb-2 block">
+                      Resume (PDF)
+                    </label>
+                    <input
+                      type="file"
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => setResume(e.target.files[0])}
+                      className="file-input file-input-bordered w-full bg-white text-[#583927] border-[#e0d5c7]"
+                      required
+                    />
+                    {resume && (
+                      <p className="text-sm text-[#B5CD88] mt-1">{resume.name}</p>
+                    )}
+                  </div>
+                  <div className="mb-6">
+                    <label className="text-xs font-extrabold uppercase tracking-widest text-[#91D8D4] mb-2 block">
+                      Cover Letter (optional)
+                    </label>
+                    <textarea
+                      value={coverLetter}
+                      onChange={(e) => setCoverLetter(e.target.value)}
+                      rows={4}
+                      placeholder="Tell the employer why you're a great fit..."
+                      className="textarea textarea-bordered w-full bg-white text-[#583927] border-[#e0d5c7] focus:border-[#91D8D4] focus:outline-none"
+                    />
+                  </div>
+                  {submitError && (
+                    <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                      {submitError}
+                    </div>
+                  )}
+                  <div className="flex justify-center gap-3">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="px-6 py-2 bg-[#B5CD88] hover:bg-[#a0b875] disabled:bg-gray-400 text-white font-bold rounded-lg transition"
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit"}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowApplyForm(false)}
+                      className="px-6 py-2 bg-[#BB616D] hover:bg-[#a0505c] text-white font-bold rounded-lg transition"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           )}
         </div>
